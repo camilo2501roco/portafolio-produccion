@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
 
 
 
-  const res = await axios.get("./lugares.json");
+  const res = await axios.get("lugares.json");
   const lugares = res.data; 
 
   const contenedor = document.getElementById("contenedor-lugares");

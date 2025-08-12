@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const idLugar = localStorage.getItem("idLugar");
 
-  const res = await axios.get("./lugares.json");
+  const res = await axios.get("lugares.json");
   const lugar = res.data.find(l => l.id == idLugar);
 
   mostrarDetalle(lugar);
