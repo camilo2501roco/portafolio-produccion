@@ -1,0 +1,609 @@
+
+body {
+      margin: 45px;
+      background-color :white;
+      display: flex;
+      justify-content: center;
+    }
+  
+
+    .padre {
+      width: 70%;
+      position: relative;
+      font-family: 'Roboto', sans-serif;
+      
+    }
+
+    .one-block {
+      background-image: url("./imagen_fondo.jpg");
+      height: 400px;
+      background-size: cover;
+      position: relative;
+    }
+
+    .nombre {
+      position: relative;
+      color: white;
+      top: 80px;
+       margin-left: 20px
+      
+    }
+
+    .info-correo {
+      position: relative;
+      text-align: right;
+      top: 50%;
+      right: 2%;
+    }
+
+    .info {
+      color: white;
+    }
+
+    .gmail {
+      color:#007bff;
+    }
+
+    .h3 {
+      top: 70px;
+      position: relative;
+      font-size: 0.9rem;
+      left: 2%;
+      color: lightgrey;
+    }
+
+    .boton {
+      position: relative;
+      top: 50%;
+      background-color:#007bff;
+      border-radius: 50px;
+      border: none;
+      left: 3%;
+      height: 30px;
+      color: white;
+
+    }
+
+.barra-seleccion{
+  box-shadow: 3px 3px 5px rgba(120, 119, 119, 0.449);
+    background-color: white;
+    
+    position: relative;
+}
+
+.caja{
+   display: flex;
+    justify-content: space-around;
+    
+    gap: 10px;
+}
+
+
+    .two-block {
+      display: flex;
+    
+    align-items: center;
+    
+    }
+    .two-block-derecha{
+       display: flex;
+    
+    align-items: center;
+    }
+
+ 
+    .menu {
+      display: flex;
+      align-items: center;
+      font-size: 10px;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      border: 0.5px solid #ddd;
+      background-color: white;
+      position: relative;
+      padding: 4px;
+      width: 100%;
+    }
+.menu i {
+  color: #007BFF; 
+  font-size: 14px;
+ gap: 10px;
+
+}
+
+    .perfil {
+      width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid white;
+    position: absolute;
+    top: -50px;
+    left: 48%;
+    transform: translateX(-50%);
+    object-fit: cover;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .cono {
+      height: 20px;
+    }
+
+    .info-columnas {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1px;
+      
+      align-items: stretch;
+      
+      
+
+    }
+
+    .tarjeta {
+      background-color: rgb(241, 239, 239);
+      padding: 30px;
+      
+      flex: 1;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-size: 14px;
+      
+    }
+    
+    
+    .info-columnas h2 {
+  position: relative;
+  padding-top: 15px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.info-columnas h2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5%;
+  height: 2px;
+  background-color: #00aaff; /* azul */
+}
+
+
+    .subtitulo {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .cv-boton {
+      background-color: white;
+      color:#00aaff;
+      padding: 10px 20px;
+      border: 1px solid #00aaff;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .cv-boton:hover {
+      background-color: #008ecc;
+      
+    }
+
+    .info-lista {
+      list-style: none;
+      padding: 0;
+    }
+
+    .info-lista li {
+      margin-bottom: 10px;
+    }
+
+    .social-iconos {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-iconos a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      background-color: #00aaff;
+      color: white;
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .expertise-item {
+      margin-bottom: 20px;
+    }
+
+    .expertise-item i {
+      color:   rgba(128, 128, 128, 0.4);
+      margin-right: 10px;
+      font-size: 18px;
+    }
+   
+ 
+
+
+
+
+    .ultima-parte {
+      margin-top: 15px;
+    }
+
+    .seccion-subtitulo {
+      font-size: 20px;
+      color:black;
+      margin-bottom: 2px;
+      display: inline-block;
+      padding-bottom: 1px;
+      position: relative;
+    }
+    .seccion-subtitulo::before{
+        content: "";
+  position: absolute;
+  top: 0;
+  margin-top: 15px;
+  left: 0;
+  width: 2%;
+  height: 3px;
+  background-color: #00aaff;
+  border-radius: 2px;
+ 
+  width: 10%;
+ 
+    }
+
+    
+    .mi-resumen {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:1px;
+    }
+
+    .tarjeta-resumen {
+      background-color: white;
+      
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+    .tarjeta-resumen h3 {
+  position: relative;
+  padding-top: 15px;
+  margin-top: 10px;
+}
+
+.tarjeta-resumen h3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5%;
+  height: 3px;
+  background-color: #00aaff;
+  border-radius: 2px;
+}
+
+
+
+
+    .tarjeta-resumen h2 {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .tarjeta-resumen p {
+      font-size: 0.8rem;
+      color: #444;
+    }
+
+    .icono-titulo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      color: gray;
+      
+    }
+.icono-derecha{
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
+    .icono-titulo i {
+      font-size: 20px;
+    }
+
+    .barra-progreso span {
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    .barra {
+      background-color: #eee;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .barra div {
+      height: 5px;
+      background-color: #00aaff;
+    }
+
+    .iconos-intereses {
+      display: flex;
+      gap: 20px;
+      font-size: 20px;
+      color: #00aaff;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .interes{
+      display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+  color: #00aaff;
+    }
+    .interes i{
+      font-size: 22px;
+  margin-bottom: 5px;
+
+    }
+    .interes span {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.circulo-icono {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #00aaff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.circulo-icono i {
+  color: #00aaff;
+  font-size: 15px;
+}
+
+
+.lista-con-linea {
+  list-style: disc ;
+  color: #333;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Coloca los elementos en columna */
+  gap: 20px
+}
+
+.lista-con-linea li::marker {
+  color: #00aaff; 
+ 
+}
+
+.columna-izquierda .tarjeta-resumen {
+  margin-bottom: 5px;
+}
+.columna-central{
+  height: 100%
+}
+
+.lista-con-linea span{
+  color: #eee;
+  background-color: #00aaff;
+  border-radius: 20%;
+}
+
+  @media (max-width: 1300px) and (min-width:1000px){
+
+.padre{
+  width: 90%;
+}
+.iconos-intereses {
+      display: flex;
+      gap: 5px;
+      font-size: 15px;
+      color: #00aaff;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    
+
+
+  }
+
+
+  @media (max-width: 1000px) and (min-width:400px){
+    .padre{
+      width: 100%;
+    }
+    
+
+    .info-correo {
+      position: relative;
+      text-align: right;
+      top: 30%;
+      right: 2%;
+    }
+
+  .two-block,.two-block-derecha{
+     align-items: center;
+        justify-content: center;
+        justify-content: space-between;
+
+  }
+.caja{
+  flex-direction: column;
+        gap:1px;
+        
+}
+
+.perfil{
+  position: absolute; /* Posiciona relativa al contenedor principal */
+  top: -100px; /* Sube la imagen 100px fuera del contenedor */
+  left: 50%; /* Centra horizontalmente */
+  transform: translateX(-50%); /* Ajusta el centrado */
+  border-radius: 50%;
+  height: 95px;
+  width: 95px;
+   border: 3px solid white;
+  z-index: 100; /* Ajusta la capa en la que se muestra */
+}
+
+
+
+
+.info-columnas{
+ display: grid;
+  grid-template-columns: 1fr; /* Una sola columna */
+  gap: 20px;
+
+}
+.ultima-parte{
+  display: grid;
+  grid-template-columns: 1fr; /* Una sola columna */
+  gap: 5px;
+}
+.mi-resumen{
+  display: grid;
+  grid-template-columns: 1fr; /* Una sola columna */
+  gap: 5px;
+}
+
+
+    body {
+      margin: 1px;
+      background-color :white;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 400px) and (min-width:300px){
+    .padre{
+      width: 100%;
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      
+    }
+
+    body{
+      
+      background-color :white;
+      display: flex;
+      justify-content: center;
+      box-sizing: border-box;
+      width: 100%;
+       margin: 0 auto;
+       
+    }
+
+     .info-correo {
+      position: relative;
+      text-align: right;
+      top: 30%;
+      right: 2%;
+    }
+
+  .two-block,.two-block-derecha{
+     align-items: center;
+        justify-content: center;
+        justify-content: space-between;
+
+  }
+.caja{
+  flex-direction: column;
+        gap:1px;
+        
+}
+
+.perfil{
+  position: absolute; /* Posiciona relativa al contenedor principal */
+  top: -100px; /* Sube la imagen 100px fuera del contenedor */
+  left: 50%; /* Centra horizontalmente */
+  transform: translateX(-50%); /* Ajusta el centrado */
+  border-radius: 50%;
+  height: 95px;
+  width: 95px;
+   border: 3px solid white;
+  z-index: 100; /* Ajusta la capa en la que se muestra */
+}
+
+
+
+
+.info-columnas{
+ display: grid;
+  grid-template-columns: 1fr; /* Una sola columna */
+  gap: 20px;
+
+}
+.ultima-parte{
+  display: grid;
+  grid-template-columns: 1fr; /* Una sola columna */
+  gap: 5px;
+}
+.mi-resumen{
+  display: grid;
+  grid-template-columns: 1fr; /* Una sola columna */
+  gap: 5px;
+}
+.boton {
+      position: relative;
+      top: 40%;
+      background-color:#007bff;
+      border-radius: 50px;
+      border: none;
+      left: 35%;
+      height: 25px;
+      color: white;
+
+    }
+    .info-correo {
+      position: relative;
+      text-align: center;
+      top: 15%;
+      font-size: 12px;
+      
+    }
+
+    .h3 {
+      top: 70px;
+      position: relative;
+      font-size: 0.9rem;
+      text-align: center;
+      color: lightgrey;
+    }
+.nombre {
+      position: relative;
+      color: white;
+      top: 80px;
+       text-align: center;
+      
+  }
+
+  .one-block {
+      background-image: url("./imagen_fondo.jpg");
+      height: 400px;
+      
+      position: relative;
+      object-position: center;
+      object-fit: cover;
+      background-size: cover; /* Ajusta cómo se recorta la imagen */
+  background-position: center center; 
+    }
+    
+    
+ 
+    
+}

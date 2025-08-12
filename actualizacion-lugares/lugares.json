@@ -1,0 +1,542 @@
+[
+  {
+    "id": 1,
+    "nombre": "Torre Eiffel",
+    "ciudad": "París",
+    "pais": "Francia",
+    "descripcion": "El monumento más icónico de París, ofrece vistas panorámicas de la ciudad.",
+    "url_imagen": "https://res.cloudinary.com/hello-tickets/image/upload/ar_1:1,c_fill,f_auto,q_auto,w_800/v1645844269/gd99ktjpmrtkwwlyn8hx.jpg",
+    "coordenadas": {
+      "latitud": 48.8584,
+      "longitud": 2.2945
+    },
+    "datosInteresantes": [
+      { "titulo": "Altura", "valor": "330 metros" },
+      { "titulo": "Construcción", "valor": "1887-1889" },
+      { "titulo": "Visitantes Anuales", "valor": "+7 millones" }
+    ],
+    "actividadesRecomendadas": [
+      "Subir al último piso",
+      "Paseo en barco por el Sena",
+      "Picnic en Campo de Marte"
+    ],
+    "categoria": {
+      "nombre": "Ciudad Emblemática",
+      "colorPrimario": "#a2d2ff",
+      "colorSecundario": "#0077b6"
+    }
+  },
+  {
+    "id": 2,
+    "nombre": "Gran Muralla China",
+    "ciudad": "Huairou",
+    "pais": "China",
+    "descripcion": "Antigua fortificación china construida y reconstruida entre el siglo V a. C. y el siglo XVI.",
+    "url_imagen": "https://content-historia.nationalgeographic.com.es/medio/2025/02/19/gran-muralla-china_01cbe21a_250219111818_1280x853.webp",
+    "coordenadas": {
+      "latitud": 40.4319,
+      "longitud": 116.5704
+    },
+    "datosInteresantes": [
+      { "titulo": "Longitud Estimada", "valor": "21,196 km" },
+      { "titulo": "Propósito", "valor": "Defensa Militar" },
+      { "titulo": "Patrimonio UNESCO", "valor": "Sí, desde 1987" }
+    ],
+    "actividadesRecomendadas": [
+      "Senderismo en Mutianyu",
+      "Visita a Badaling",
+      "Tomar fotos panorámicas"
+    ],
+    "categoria": {
+      "nombre": "Sitio Histórico",
+      "colorPrimario": "#373",
+      "colorSecundario": "#a36e4f"
+    }
+  },
+  {
+    "id": 3,
+    "nombre": "Coliseo Romano",
+    "ciudad": "Roma",
+    "pais": "Italia",
+    "descripcion": "Un anfiteatro elíptico de la época del Imperio Romano, el más grande jamás construido.",
+    "url_imagen": "https://upload.wikimedia.org/wikipedia/commons/d/de/Colosseo_2020.jpg",
+    "coordenadas": {
+      "latitud": 41.8902,
+      "longitud": 12.4922
+    },
+    "datosInteresantes": [
+      { "titulo": "Capacidad", "valor": "50,000-80,000 espectadores" },
+      { "titulo": "Construcción", "valor": "70-80 d.C." },
+      { "titulo": "Material Principal", "valor": "Hormigón y Arena" }
+    ],
+    "actividadesRecomendadas": [
+      "Tour guiado",
+      "Visitar el Foro Romano",
+      "Explorar el Palatino"
+    ],
+    "categoria": {
+      "nombre": "Monumento Antiguo",
+      "colorPrimario": "#34b",
+      "colorSecundario": "#c17c5a"
+    }
+  },
+  {
+    "id": 4,
+    "nombre": "Machu Picchu",
+    "ciudad": "Cuzco",
+    "pais": "Perú",
+    "descripcion": "Antiguo poblado inca ubicado en las alturas de los Andes, Patrimonio de la Humanidad.",
+    "url_imagen": "https://www.machupicchu.org/wp-content/uploads/machu-picchu-facts-travel-information.jpg",
+    "coordenadas": {
+      "latitud": -13.1631,
+      "longitud": -72.5450
+    },
+    "datosInteresantes": [
+      { "titulo": "Descubrimiento", "valor": "1911 (científico)" },
+      { "titulo": "Altura", "valor": "2,430 msnm" },
+      { "titulo": "Tipo de sitio", "valor": "Ciudadela Inca" }
+    ],
+    "actividadesRecomendadas": [
+      "Caminar el Camino Inca",
+      "Visitar el Templo del Sol",
+      "Observar llamas"
+    ],
+    "categoria": {
+      "nombre": "Maravilla Natural",
+      "colorPrimario": "#80ed99",
+      "colorSecundario": "#3f7a4a"
+    }
+  },
+  {
+    "id": 5,
+    "nombre": "Cristo Redentor",
+    "ciudad": "Río de Janeiro",
+    "pais": "Brasil",
+    "descripcion": "Una estatua art déco de Jesús de Nazaret, con los brazos abiertos, mirando a la ciudad de Río.",
+    "url_imagen": "https://i0.wp.com/imaginariodejaneiro.com/wp-content/uploads/2014/03/cristo-redentor-corcovado-rio-de-janeiro.jpg",
+    "coordenadas": {
+      "latitud": -22.9519,
+      "longitud": -43.2105
+    },
+    "datosInteresantes": [
+      { "titulo": "Altura", "valor": "38 metros" },
+      { "titulo": "Inauguración", "valor": "1931" },
+      { "titulo": "Peso", "valor": "635 toneladas" }
+    ],
+    "actividadesRecomendadas": [
+      "Tomar funicular hasta la cima",
+      "Disfrutar la vista panorámica",
+      "Visitar la capilla"
+    ],
+    "categoria": {
+      "nombre": "Icono Cultural",
+      "colorPrimario": "#ffd166",
+      "colorSecundario": "#b388"
+    }
+  },
+  {
+    "id": 6,
+    "nombre": "Ópera de Sídney",
+    "ciudad": "Sídney",
+    "pais": "Australia",
+    "descripcion": "Famoso centro de artes escénicas con un diseño de conchas que lo convierte en un icono de Australia.",
+    "url_imagen": "https://upload.wikimedia.org/wikipedia/commons/4/40/Sydney_Opera_House_Sails.jpg",
+    "coordenadas": {
+      "latitud": -33.8568,
+      "longitud": 151.2153
+    },
+    "datosInteresantes": [
+      { "titulo": "Apertura", "valor": "1973" },
+      { "titulo": "Arquitecto", "valor": "Jørn Utzon" },
+      { "titulo": "Salas", "valor": "Múltiples salas de conciertos" }
+    ],
+    "actividadesRecomendadas": [
+      "Asistir a un espectáculo",
+      "Tour guiado por el edificio",
+      "Paseo por el puerto"
+    ],
+    "categoria": {
+      "nombre": "Arquitectura Moderna",
+      "colorPrimario": "#8ecae6",
+      "colorSecundario": "#219ebc"
+    }
+  },
+  {
+    "id": 7,
+    "nombre": "Pirámides de Giza",
+    "ciudad": "El Cairo",
+    "pais": "Egipto",
+    "descripcion": "Antiguas pirámides que sirvieron como tumbas para los faraones, un misterio de la antigüedad.",
+    "url_imagen": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic2743994.jpg?w=1600",
+    "coordenadas": {
+      "latitud": 29.9792,
+      "longitud": 31.1342
+    },
+    "datosInteresantes": [
+      { "titulo": "Construcción", "valor": "2580-2560 a.C." },
+      { "titulo": "Faraones", "valor": "Keops, Kefrén, Micerino" },
+      { "titulo": "Antigüedad", "valor": "Más de 4500 años" }
+    ],
+    "actividadesRecomendadas": [
+      "Paseo en camello",
+      "Visitar el interior de una pirámide",
+      "Ver el espectáculo de luz y sonido"
+    ],
+    "categoria": {
+      "nombre": "Sitio Histórico",
+      "colorPrimario": "#fff",
+      "colorSecundario": "#a36e4f"
+    }
+  },
+  {
+    "id": 8,
+    "nombre": "Estatua de la Libertad",
+    "ciudad": "Nueva York",
+    "pais": "Estados Unidos",
+    "descripcion": "Un regalo de Francia a los Estados Unidos, símbolo de la libertad y la democracia.",
+    "url_imagen": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Statue_of_Liberty_7.jpg",
+    "coordenadas": {
+      "latitud": 40.6892,
+      "longitud": -74.0445
+    },
+    "datosInteresantes": [
+      { "titulo": "Altura", "valor": "93 metros (con pedestal)" },
+      { "titulo": "Diseñador", "valor": "Frédéric Auguste Bartholdi" },
+      { "titulo": "Material", "valor": "Cobre" }
+    ],
+    "actividadesRecomendadas": [
+      "Tomar el ferry a la isla",
+      "Visitar el museo de la isla",
+      "Subir a la corona (reservar con antelación)"
+    ],
+    "categoria": {
+      "nombre": "Ciudad Emblemática",
+      "colorPrimario": "#a2d2ff",
+      "colorSecundario": "#0077b6"
+    }
+  },
+  {
+    "id": 9,
+    "nombre": "Taj Mahal",
+    "ciudad": "Agra",
+    "pais": "India",
+    "descripcion": "Un mausoleo de mármol blanco, una obra maestra de la arquitectura mogol y un símbolo de amor eterno.",
+    "url_imagen": "https://static.nationalgeographicla.com/files/styles/image_3200/public/93080.jpg?w=1900&h=1425",
+    "coordenadas": {
+      "latitud": 27.1751,
+      "longitud": 78.0421
+    },
+    "datosInteresantes": [
+      { "titulo": "Construcción", "valor": "1631-1653" },
+      { "titulo": "Comisionado por", "valor": "Emperador Shah Jahan" },
+      { "titulo": "Patrimonio UNESCO", "valor": "Sí, desde 1983" }
+    ],
+    "actividadesRecomendadas": [
+      "Visitar al amanecer o atardecer",
+      "Explorar los jardines",
+      "Apreciar la artesanía en mármol"
+    ],
+    "categoria": {
+      "nombre": "Monumento Antiguo",
+      "colorPrimario": "#e0b090",
+      "colorSecundario": "#c17c5a"
+    }
+  },
+  {
+    "id": 10,
+    "nombre": "Big Ben",
+    "ciudad": "Londres",
+    "pais": "Reino Unido",
+    "descripcion": "La famosa torre del reloj en el Palacio de Westminster, un icono de Londres.",
+    "url_imagen": "https://www.clarin.com/img/2020/11/11/eMZXEB391_1200x0__1.jpg",
+    "coordenadas": {
+      "latitud": 51.5007,
+      "longitud": -0.1246
+    },
+    "datosInteresantes": [
+      { "titulo": "Altura de la Torre", "valor": "96 metros" },
+      { "titulo": "Campana Principal", "valor": "Big Ben (13.7 toneladas)" },
+      { "titulo": "Nombre Oficial", "valor": "Elizabeth Tower" }
+    ],
+    "actividadesRecomendadas": [
+      "Paseo por el Támesis",
+      "Visitar el Palacio de Westminster",
+      "Foto frente al Big Ben"
+    ],
+    "categoria": {
+      "nombre": "Ciudad Emblemática",
+      "colorPrimario": "#a2d2ff",
+      "colorSecundario": "#0077b6"
+    }
+  },
+  {
+    "id": 11,
+    "nombre": "Plaza Roja",
+    "ciudad": "Moscú",
+    "pais": "Rusia",
+    "descripcion": "Famosa plaza en el corazón de Moscú, rodeada por el Kremlin y la Catedral de San Basilio.",
+    "url_imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/RedSquare_%28pixinn.net%29.jpg/800px-RedSquare_%28pixinn.net%29.jpg",
+    "coordenadas": {
+      "latitud": 55.7539,
+      "longitud": 37.6208
+    },
+    "datosInteresantes": [
+      { "titulo": "Origen del Nombre", "valor": "Belleza (antiguo ruso)" },
+      { "titulo": "Longitud", "valor": "330 metros" },
+      { "titulo": "Ancho", "valor": "70 metros" }
+    ],
+    "actividadesRecomendadas": [
+      "Visitar el Kremlin",
+      "Entrar a la Catedral de San Basilio",
+      "Pasear por los Grandes Almacenes GUM"
+    ],
+    "categoria": {
+      "nombre": "Sitio Histórico",
+      "colorPrimario": "#d4a373",
+      "colorSecundario": "#a36e4f"
+    }
+  },
+  {
+    "id": 12,
+    "nombre": "Sagrada Familia",
+    "ciudad": "Barcelona",
+    "pais": "España",
+    "descripcion": "La basílica inacabada de Gaudí, una obra maestra del modernismo catalán.",
+    "url_imagen": "https://barcelonalocalexperiences.com/wp-content/uploads/2024/02/basilica-de-la-sagrada-familia-barcelona-espan%CC%83a.jpeg",
+    "coordenadas": {
+      "latitud": 41.4036,
+      "longitud": 2.1744
+    },
+    "datosInteresantes": [
+      { "titulo": "Inicio Construcción", "valor": "1882" },
+      { "titulo": "Arquitecto Principal", "valor": "Antoni Gaudí" },
+      { "titulo": "Finalización Prevista", "valor": "2026" }
+    ],
+    "actividadesRecomendadas": [
+      "Reservar tickets con antelación",
+      "Visitar las torres",
+      "Explorar el museo"
+    ],
+    "categoria": {
+      "nombre": "Arquitectura Moderna",
+      "colorPrimario": "#8ecae6",
+      "colorSecundario": "#219ebc"
+    }
+  },
+  {
+    "id": 13,
+    "nombre": "Monte Fuji",
+    "ciudad": "Honshu",
+    "pais": "Japón",
+    "descripcion": "El pico más alto de Japón, un volcán activo y un símbolo cultural.",
+    "url_imagen": "https://res.cloudinary.com/jnto/image/upload/w_750,h_503,fl_lossy,f_auto/v1531981666/fujiguide/SG010_6",
+    "coordenadas": {
+      "latitud": 35.3606,
+      "longitud": 138.7278
+    },
+    "datosInteresantes": [
+      { "titulo": "Altura", "valor": "3,776 metros" },
+      { "titulo": "Última Erupción", "valor": "1707-1708" },
+      { "titulo": "Clima", "valor": "Nevado en invierno" }
+    ],
+    "actividadesRecomendadas": [
+      "Senderismo (temporada de escalada)",
+      "Visitar los Cinco Lagos Fuji",
+      "Disfrutar de las vistas desde Hakone"
+    ],
+    "categoria": {
+      "nombre": "Maravilla Natural",
+      "colorPrimario": "#80ed99",
+      "colorSecundario": "#3f7a4a"
+    }
+  },
+  {
+    "id": 14,
+    "nombre": "Petra",
+    "ciudad": "Ma'an",
+    "pais": "Jordania",
+    "descripcion": "Antigua ciudad nabatea excavada en roca, famosa por su Tesoro.",
+    "url_imagen": "https://media.tacdn.com/media/attractions-splice-spp-674x446/10/23/43/5f.jpg",
+    "coordenadas": {
+      "latitud": 30.3285,
+      "longitud": 35.4444
+    },
+    "datosInteresantes": [
+      { "titulo": "Origen", "valor": "Civilización Nabatea" },
+      { "titulo": "Material", "valor": "Arenisca" },
+      { "titulo": "Descubrimiento Occidental", "valor": "1812" }
+    ],
+    "actividadesRecomendadas": [
+      "Caminar por el Siq",
+      "Visitar El Tesoro (Al-Khazneh)",
+      "Explorar el Monasterio (Ad Deir)"
+    ],
+    "categoria": {
+      "nombre": "Monumento Antiguo",
+      "colorPrimario": "#e0b090",
+      "colorSecundario": "#c17c5a"
+    }
+  },
+  {
+    "id": 15,
+    "nombre": "Cataratas del Niágara",
+    "ciudad": "Niagara Falls",
+    "pais": "Canadá/EE. UU.",
+    "descripcion": "Impresionantes cascadas en la frontera entre Estados Unidos y Canadá.",
+    "url_imagen": "https://cdn-imgix.headout.com/media/images/d3341b9aa16813044ee90b0bc69b311a-Niagara%20Falls%20Canada.jpg",
+    "coordenadas": {
+      "latitud": 43.0799,
+      "longitud": -79.0746
+    },
+    "datosInteresantes": [
+      { "titulo": "Caída de Agua", "valor": "51 metros" },
+      { "titulo": "Volumen de Agua", "valor": "Alto caudal" },
+      { "titulo": "Formación", "valor": "Última edad de hielo" }
+    ],
+    "actividadesRecomendadas": [
+      "Paseo en el barco Maid of the Mist",
+      "Visitar Journey Behind the Falls",
+      "Explorar la ciudad de Niagara Falls"
+    ],
+    "categoria": {
+      "nombre": "Maravilla Natural",
+      "colorPrimario": "#80ed99",
+      "colorSecundario": "#3f7a4a"
+    }
+  },
+  {
+    "id": 16,
+    "nombre": "Burj Khalifa",
+    "ciudad": "Dubái",
+    "pais": "Emiratos Árabes Unidos",
+    "descripcion": "El edificio más alto del mundo, un rascacielos impresionante con vistas espectaculares.",
+    "url_imagen": "https://aws-tiqets-cdn.imgix.net/images/content/794bd846c88b4c4ca10678ad44e753cb.jpg?auto=format&fit=crop&q=75&w=900",
+    "coordenadas": {
+      "latitud": 25.1972,
+      "longitud": 55.2744
+    },
+    "datosInteresantes": [
+      { "titulo": "Altura", "valor": "828 metros" },
+      { "titulo": "Pisos", "valor": "163" },
+      { "titulo": "Inauguración", "valor": "2010" }
+    ],
+    "actividadesRecomendadas": [
+      "Subir al observatorio At The Top",
+      "Ver el espectáculo de fuentes de Dubái",
+      "Cenar en el Downtown Dubai"
+    ],
+    "categoria": {
+      "nombre": "Arquitectura Moderna",
+      "colorPrimario": "#8ecae6",
+      "colorSecundario": "#219ebc"
+    }
+  },
+  {
+    "id": 17,
+    "nombre": "Acrópolis de Atenas",
+    "ciudad": "Atenas",
+    "pais": "Grecia",
+    "descripcion": "Antigua ciudadela con ruinas de templos famosos como el Partenón.",
+    "url_imagen": "https://www.hola.com/horizon/square/d4a4acf4b090-atenas-partenon-acropolis-t.jpg",
+    "coordenadas": {
+      "latitud": 37.9715,
+      "longitud": 23.7257
+    },
+    "datosInteresantes": [
+      { "titulo": "Construcción Partenón", "valor": "447-438 a.C." },
+      { "titulo": "Dedicado a", "valor": "Diosa Atenea" },
+      { "titulo": "Estilo", "valor": "Dórico" }
+    ],
+    "actividadesRecomendadas": [
+      "Visitar el Partenón",
+      "Explorar el Templo de Erecteion",
+      "Pasear por el Antiguo Ágora"
+    ],
+    "categoria": {
+      "nombre": "Monumento Antiguo",
+      "colorPrimario": "#e0b090",
+      "colorSecundario": "#c17c5a"
+    }
+  },
+  {
+    "id": 18,
+    "nombre": "Canal de Panamá",
+    "ciudad": "Ciudad de Panamá",
+    "pais": "Panamá",
+    "descripcion": "Ingeniosa vía de navegación artificial que une el Océano Atlántico y el Pacífico.",
+    "url_imagen": "https://elfarodelcanal.com/wp-content/uploads/2022/09/2022-07-01-003-ElCanaldePanama-108-operacion-2-600x400.jpg",
+    "coordenadas": {
+      "latitud": 9.0722,
+      "longitud": -79.5077
+    },
+    "datosInteresantes": [
+      { "titulo": "Longitud", "valor": "82 km" },
+      { "titulo": "Inauguración", "valor": "1914" },
+      { "titulo": "Tipo", "valor": "Canal de esclusas" }
+    ],
+    "actividadesRecomendadas": [
+      "Visitar el Centro de Visitantes de Miraflores",
+      "Ver el paso de barcos",
+      "Recorrido en bote por el canal"
+    ],
+    "categoria": {
+      "nombre": "Maravilla de Ingeniería",
+      "colorPrimario": "#c0c0c0",
+      "colorSecundario": "#7a7a7a"
+    }
+  },
+  {
+    "id": 19,
+    "nombre": "Estatuas Moai",
+    "ciudad": "Isla de Pascua",
+    "pais": "Chile",
+    "descripcion": "Enigmáticas figuras monolíticas talladas por el pueblo Rapa Nui.",
+    "url_imagen": "https://content-historia.nationalgeographic.com.es/medio/2023/02/23/istock-529951097_15b453ea_230223171646_1280x853.jpg",
+    "coordenadas": {
+      "latitud": -27.1167,
+      "longitud": -109.3667
+    },
+    "datosInteresantes": [
+      { "titulo": "Número Estimado", "valor": "Cerca de 1000" },
+      { "titulo": "Altura Media", "valor": "4 metros" },
+      { "titulo": "Material", "valor": "Toba volcánica" }
+    ],
+    "actividadesRecomendadas": [
+      "Visitar Rano Raraku (cantera de Moai)",
+      "Explorar Ahu Tongariki",
+      "Descubrir la cultura Rapa Nui"
+    ],
+    "categoria": {
+      "nombre": "Icono Cultural",
+      "colorPrimario": "#ffd166",
+      "colorSecundario": "#b38800"
+    }
+  },
+  {
+    "id": 20,
+    "nombre": "Catedral de San Basilio",
+    "ciudad": "Moscú",
+    "pais": "Rusia",
+    "descripcion": "Colorida catedral en la Plaza Roja de Moscú, famosa por sus cúpulas en forma de cebolla.",
+    "url_imagen": "https://fotografias.lasexta.com/clipping/cmsimages01/2019/02/21/73B302B1-9270-4A77-9568-F86BA103A301/69.jpg",
+    "coordenadas": {
+      "latitud": 55.7525,
+      "longitud": 37.6230
+    },
+    "datosInteresantes": [
+      { "titulo": "Construcción", "valor": "1555-1561" },
+      { "titulo": "Comisionado por", "valor": "Iván el Terrible" },
+      { "titulo": "Patrimonio UNESCO", "valor": "Sí" }
+    ],
+    "actividadesRecomendadas": [
+      "Recorrer el interior",
+      "Explorar la Plaza Roja",
+      "Disfrutar de la arquitectura exterior"
+    ],
+    "categoria": {
+      "nombre": "Arquitectura Religiosa",
+      "colorPrimario": "#cddc39",
+      "colorSecundario": "#827717"
+    }
+  }
+]

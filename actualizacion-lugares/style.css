@@ -1,0 +1,217 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:  #2C5F2D;
+}
+
+
+h1{
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+    margin: auto;
+    background-color:  #8B5E3C;
+    color: #f9f9f9;
+    font-size: 50px;
+    padding: 20px;
+     
+}
+/* Contenedor de todas las tarjetas */
+#contenedor-lugares {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  background-color:  #2C5F2D;
+}
+
+/* Cada tarjeta individual */
+.tarjetas {
+ max-width: 300px;  /* máximo ancho fijo para todas */
+  width: 100%; 
+  padding: 15px;
+  border-radius: 15px;
+  background-color:  #F1F1E8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+
+
+}
+
+.tarjetas img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.tarjetas button {
+
+   background-color: #97BC62;  
+  color: #F1F1E8;      
+  border: none;
+  padding: 15px 40px;;
+  border-radius: 25px;   
+  font-size: 30px;
+  cursor: pointer;
+   transition: background-color 0.3s ease, color 0.3s ease;
+   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-top: 15px;
+  
+}
+
+
+
+
+
+/* ===== ESTILO GENERAL ===== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* Encabezado */
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 2rem;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+}
+
+/* Contenedor principal */
+#detalle-pagina {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 15px;
+  max-width: 800px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* Imagen */
+#detalle-pagina img {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  margin: 15px auto;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+/* Subtítulos */
+h2, h3 {
+  margin-top: 20px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+/* Listas */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  background: rgba(255, 255, 255, 0.15);
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* Contenedor responsivo para el mapa */
+.mapa-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Proporción 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.mapa-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Botón regresar */
+#btn-regresar {
+  display: block;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  margin: 20px auto 0 auto;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#btn-regresar:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  #detalle-pagina {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2, h3 {
+    font-size: 1.3rem;
+  }
+
+  ul li {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h2, h3 {
+    font-size: 1.1rem;
+  }
+
+  ul li {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  #btn-regresar {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
+
+
+
+
+
+
+
