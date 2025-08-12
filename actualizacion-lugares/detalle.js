@@ -50,6 +50,6 @@ function mostrarDetalle(lugar) {
 
   // Botón regresar
   document.getElementById("btn-regresar").addEventListener("click", () => {
-    window.location.href = "detalle.html";
+    window.location.href = "index.html";
   });
 }
