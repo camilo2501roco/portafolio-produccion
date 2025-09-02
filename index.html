@@ -1,67 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis páginas</title>
-    <link rel="stylesheet" href="estilo.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio Camilo Gelves</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
-<body>
-    
-<h1>Proyectos Camilo Gelves</h1>
+<body class="bg-gray-900 text-white font-sans">
 
-<div class="tarjetas">
-    <div class="card">
-        <img src="./IMAGEN_QUIEN_SOY.png" alt="">
-        <div class="texto">
-            <h3>QUIÉN SOY?</h3>
-            <a class="btn" href="/quien_soy/index.html" target="_blank">Ver Proyecto</a>
-        </div>
+  <!-- HERO -->
+  <section class="relative h-screen flex flex-col justify-center items-center text-center bg-cover bg-center"
+           style="background-image: url('./fondo-de-pagina.jpg');">
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="relative z-10 max-w-2xl">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">Hola, soy <span class="text-yellow-400">Camilo Gelves</span></h1>
+      <p class="text-lg md:text-xl mb-8">Bienvenido a mi portafolio. Aquí encontrarás mis proyectos de desarrollo web.</p>
+      <a href="#proyectos" class="px-6 py-3 bg-yellow-400 text-black font-semibold rounded-xl hover:bg-yellow-500 transition">Explorar proyectos</a>
     </div>
+  </section>
 
-    <div class="card">
-        <img src="./IMAGEN_HOJA_VIDA.png" alt="">
-        <div class="texto">
-            <h3>Hoja De Vida</h3>
-            <a class="btn" href="/hoja_de_vida/index.html" target="_blank">Ver Proyecto</a>
+  <!-- PROYECTOS CON CARRUSEL -->
+  <section id="proyectos" class="py-20 px-6 bg-gray-800">
+    <h2 class="text-3xl font-bold text-center mb-12">Mis Proyectos</h2>
+
+    <!-- Slider main container -->
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+
+        <!-- Proyecto 1 -->
+        <div class="swiper-slide">
+          <a href="/quien_soy/index.html" target="_blank" class="block bg-gray-900 rounded-2xl overflow-hidden shadow-lg">
+            <img src="./IMAGEN_QUIEN_SOY.png" alt="Quién Soy" class="w-full h-64 object-cover">
+            <div class="p-5">
+              <h3 class="text-xl font-bold mb-2">¿Quién soy?</h3>
+              <p class="text-gray-300">Página de presentación personal.</p>
+            </div>
+          </a>
         </div>
-    </div>
 
-    <div class="card">
-        <img src="./IMAGEN_TIENDA.png" alt="">
-        <div class="texto">
-            <h3>Tienda Apple</h3>
-            <a class="btn" href="/pagina_apple/index.html" target="_blank">Ver Proyecto</a>
+        <!-- Proyecto 2 -->
+        <div class="swiper-slide">
+          <a href="/hoja_de_vida/index.html" target="_blank" class="block bg-gray-900 rounded-2xl overflow-hidden shadow-lg">
+            <img src="./IMAGEN_HOJA_VIDA.png" alt="Hoja de Vida" class="w-full h-64 object-cover">
+            <div class="p-5">
+              <h3 class="text-xl font-bold mb-2">Hoja de Vida</h3>
+              <p class="text-gray-300">Mi currículum digital.</p>
+            </div>
+          </a>
         </div>
-    </div>
 
-
-
-    <div class="card">
-        <img src="./calculadora/Captura de pantalla 2025-07-29 192814.png" alt="">
-        <div class="texto">
-            <h3>calculadora</h3>
-            <a class="btn" href="/calculadora/index.html" target="_blank">Ver Proyecto</a>
+        <!-- Proyecto 3 -->
+        <div class="swiper-slide">
+          <a href="/pagina_apple/index.html" target="_blank" class="block bg-gray-900 rounded-2xl overflow-hidden shadow-lg">
+            <img src="./IMAGEN_TIENDA.png" alt="Tienda Apple" class="w-full h-64 object-cover">
+            <div class="p-5">
+              <h3 class="text-xl font-bold mb-2">Tienda Apple</h3>
+              <p class="text-gray-300">Página de práctica estilo Apple Store.</p>
+            </div>
+          </a>
         </div>
-    </div>
 
-    <div class="card">
-        <img src="./fondo-lugares.PNG" alt="">
-        <div class="texto">
-            <h3>lugares Turisticos</h3>
-            <a class="btn" href="/actualizacion-lugares/index.html" target="_blank">Ver Proyecto</a>
+        <!-- Proyecto 4 -->
+        <div class="swiper-slide">
+          <a href="/calculadora/index.html" target="_blank" class="block bg-gray-900 rounded-2xl overflow-hidden shadow-lg">
+            <img src="./calculadora/Captura de pantalla 2025-07-29 192814.png" alt="Calculadora" class="w-full h-64 object-cover">
+            <div class="p-5">
+              <h3 class="text-xl font-bold mb-2">Calculadora</h3>
+              <p class="text-gray-300">Aplicación de calculadora funcional.</p>
+            </div>
+          </a>
         </div>
-    </div>
-      
-    <div class="card">
-        <img src="./Captura de pantalla 2025-09-02 164211.png" alt="">
-        <div class="texto">
-            <h3>Gestion Reservas</h3>
-            <a class="btn" href="/gestion de reservas/index.html" target="_blank">Ver Proyecto</a>
-        </div>
-    </div>
-</div>
 
+        <!-- Proyecto 5 -->
+        <div class="swiper-slide">
+          <a href="/actualizacion-lugares/index.html" target="_blank" class="block bg-gray-900 rounded-2xl overflow-hidden shadow-lg">
+            <img src="./fondo-lugares.PNG" alt="Lugares Turísticos" class="w-full h-64 object-cover">
+            <div class="p-5">
+              <h3 class="text-xl font-bold mb-2">Lugares Turísticos</h3>
+              <p class="text-gray-300">Exploración de sitios turísticos.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Proyecto 6 -->
+        <div class="swiper-slide">
+          <a href="/gestion de reservas/index.html" target="_blank" class="block bg-gray-900 rounded-2xl overflow-hidden shadow-lg">
+            <img src="./Captura de pantalla 2025-09-02 164211.png" alt="Gestión de Reservas" class="w-full h-64 object-cover">
+            <div class="p-5">
+              <h3 class="text-xl font-bold mb-2">Gestión de Reservas</h3>
+              <p class="text-gray-300">Sistema para administrar reservas en restaurante.</p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Flechas -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+
+      <!-- Dots -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-black/80 text-center py-6 mt-10">
+    <p class="text-gray-400">© 2025 Camilo Gelves | Portafolio</p>
+  </footer>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        768: { slidesPerView: 2 }, 
+        1024: { slidesPerView: 3 }
+      }
+    });
+  </script>
 </body>
 </html>
