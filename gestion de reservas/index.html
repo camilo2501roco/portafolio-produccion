@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Reservas</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+        .mesa-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .mesa-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        .reserva-estado {
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        .ocasion-icono {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        /* Estilo para el modal de reserva con scroll */
+        .modal-reserva-content {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        /* Fondo solo para la sección de mesas */
+        .fondo-mesas {
+            background-image: url(./081cd88dc49841b54562c23e3c179385.jpg);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            min-height: 500px;
+        }
+        .fondo-mesas::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.88);
+            z-index: 0;
+        }
+        .contenido-mesas {
+            position: relative;
+            z-index: 1;
+        }
+        /* Ajustes para mejorar la legibilidad */
+        .texto-sombra {
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+
+
+<body class="bg-gray-50 min-h-screen">
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <h1 id="main-title" class="text-3xl md:text-5xl font-extrabold text-emerald-700 text-center texto-sombra">
+                <i class="fas fa-utensils mr-3"></i>Gestión de Mesas
+            </h1>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-6">
+        <!-- Botones de inicio -->
+        <div id="contenedor-botones" class="flex flex-col sm:flex-row gap-3 w-full max-w-md mx-auto justify-center mt-6 mb-8">
+            <button type="button" onclick="abrirModalAgregarMesa()" class="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition flex items-center">
+                <i class="fas fa-plus-circle mr-2"></i>Agregar Mesa
+            </button>
+            <button id="btnVerReservas" type="button" class="px-6 py-3 border-2 border-emerald-600 text-emerald-700 font-semibold rounded-lg hover:bg-emerald-50 transition flex items-center">
+                <i class="fas fa-calendar-check mr-2"></i>Reservas
+            </button>
+        </div>
+
+        <!-- Mapa de las mesas con fondo especial -->
+        <main id="seccionMesas" class="fondo-mesas flex-1 flex flex-col items-center py-8 rounded-lg shadow-inner">
+            <div id="mesasGrid" class="contenido-mesas w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+        </main>
+
+        <!-- Modal para agregar/editar mesa -->
+        <div id="agregarMesa" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="relative mx-4 w-full max-w-lg">
+                <section class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <header class="px-5 py-4 border-b bg-emerald-600 text-white">
+                        <h2 id="am-titulo" class="text-center font-semibold text-lg">Agregar Mesa</h2>
+                    </header>
+                    <div class="px-5 py-4 space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nombre De La Mesa *</label>
+                            <input id="am-nombre" type="text" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            <span id="error-nombre" class="text-red-600 text-sm hidden"></span>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Capacidad *</label>
+                            <input id="am-capacidad" type="number" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="EJ: 4">
+                            <span id="error-capacidad" class="text-red-600 text-sm hidden"></span>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Ubicación</label>
+                            <input id="am-ubicacion" type="text" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="EJ: Jardín">
+                            <span id="error-ubicacion" class="text-red-600 text-sm hidden"></span>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+                            <select id="am-estado" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                <option value="disponible">Disponible</option>
+                                <option value="ocupada">Ocupada</option>
+                                <option value="deshabilitada">Deshabilitada</option>
+                            </select>
+                        </div>
+                    </div>
+                    <footer class="px-5 py-4 border-t flex gap-3 justify-end">
+                        <button id="am-cancelar" class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition">Cancelar</button>
+                        <button id="am-guardar" class="bg-emerald-600 text-white rounded-lg px-4 py-2 hover:bg-emerald-700 transition">Guardar</button>
+                    </footer>
+                </section>
+            </div>
+        </div>
+
+        <!-- Modal de detalle de mesa -->
+        <div id="detalleMesa" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="relative mx-4 w-full max-w-lg">
+                <section class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <header class="px-5 py-4 border-b bg-emerald-600 text-white">
+                        <h2 class="text-center font-semibold text-lg">Detalle de la mesa</h2>
+                    </header>
+                    <div class="px-5 py-4 space-y-3">
+                        <p class="flex justify-between"><span class="font-medium text-gray-700">ID:</span><span id="dm-id" class="text-gray-900"></span></p>
+                        <p class="flex justify-between"><span class="font-medium text-gray-700">Nombre:</span> <span id="dm-nombre" class="text-gray-900"></span></p>
+                        <p class="flex justify-between"><span class="font-medium text-gray-700">Capacidad</span><span id="dm-capacidad" class="text-gray-900"></span></p>
+                        <p class="flex justify-between"><span class="font-medium text-gray-700">Ubicación</span><span id="dm-ubicacion" class="text-gray-900"></span></p>
+                        <p class="flex justify-between items-center"><span class="font-medium text-gray-700">Estado:</span>
+                            <span id="dm-estado" class="inline-block rounded px-2 py-1 text-sm font-medium"></span>
+                        </p>
+                    </div>
+                    <footer class="px-5 py-4 border-t flex flex-wrap gap-3 justify-end">
+                        <button id="dm-editar" class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition">Editar</button>
+                        <button id="dm-reservar" class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition">Nueva Reserva</button>
+                        <button id="dm-eliminar" class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition">Eliminar</button>
+                        <button id="dm-cerrar" class="bg-gray-800 text-white rounded-lg px-4 py-2 hover:bg-gray-900 transition">Cerrar</button>
+                    </footer>
+                </section>
+            </div>
+        </div>
+
+        <!-- Modal de reserva -->
+        <div id="modalReserva" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="relative mx-4 w-full max-w-lg">
+                <section class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <header class="px-5 py-4 border-b bg-emerald-600 text-white">
+                        <h2 id="tituloModalReserva" class="text-center font-semibold text-lg">Nueva Reserva</h2>
+                    </header>
+                    <div class="modal-reserva-content px-5 py-4 space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nombre Del Cliente *</label>
+                            <input id="inputNombreReserva" type="text" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            <span id="errorNombreReserva" class="text-red-600 text-sm hidden"></span>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Número de personas *</label>
+                            <input id="inputPersonasReserva" type="number" min="1" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            <span id="errorPersonasReserva" class="text-red-600 text-sm hidden"></span>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de reserva *</label>
+                            <input id="inputFechaReserva" type="date" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            <span id="errorFechaReserva" class="text-red-600 text-sm hidden"></span>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Hora de Reserva *</label>
+                            <input id="inputHoraReserva" type="time" min="08:00" max="20:00" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            <span id="errorHoraReserva" class="text-red-600 text-sm hidden"></span>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Ocasión Especial</label>
+                            <select id="selectOcasionReserva" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                <option value="">Seleccione una ocasión</option>
+                                <option value="Cumpleaños">Cumpleaños</option>
+                                <option value="Aniversario">Aniversario</option>
+                                <option value="Reunión de Negocios">Reunión de Negocios</option>
+                                <option value="Cena Romántica">Cena Romántica</option>
+                                <option value="Celebración Familiar">Celebración Familiar</option>
+                                <option value="Evento Corporativo">Evento Corporativo</option>
+                                <option value="Graduación">Graduación</option>
+                                <option value="Ninguna">Ninguna</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Mesa Asignada *</label>
+                            <select id="selectMesaReserva" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                <option value="">Seleccione una mesa</option>
+                            </select>
+                            <span id="errorMesaReserva" class="text-red-600 text-sm hidden"></span>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Notas Adicionales</label>
+                            <textarea id="textareaNotasReserva" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <footer class="px-5 py-4 border-t flex gap-3 justify-end">
+                        <button id="btnCancelarReserva" class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition">Cancelar</button>
+                        <button id="btnGuardarReserva" class="bg-emerald-600 text-white rounded-lg px-4 py-2 hover:bg-emerald-700 transition">Guardar Reserva</button>
+                    </footer>
+                </section>
+            </div>
+        </div>
+
+        <!-- Modal de confirmación -->
+        <div id="modalConfirmacion" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="relative mx-4 w-full max-w-md">
+                <section class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <header class="px-5 py-4 border-b bg-emerald-600 text-white">
+                        <h2 id="confirmacionTitulo" class="text-center font-semibold text-lg">Confirmar acción</h2>
+                    </header>
+                    <div class="px-5 py-4">
+                        <p id="confirmacionMensaje" class="text-gray-700"></p>
+                    </div>
+                    <footer class="px-5 py-4 border-t flex gap-3 justify-end">
+                        <button id="btnConfirmarCancelar" class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 transition">Cancelar</button>
+                        <button id="btnConfirmarAceptar" class="bg-emerald-600 text-white rounded-lg px-4 py-2 hover:bg-emerald-700 transition">Aceptar</button>
+                    </footer>
+                </section>
+            </div>
+        </div>
+
+        <!-- Sección de reservas -->
+        <section id="seccionReservas" class="hidden mt-8">
+            <h2 class="text-2xl font-bold text-center mb-6">Gestión de Reservas</h2>
+            
+            <!-- Botón para agregar reserva desde la sección de reservas -->
+            <div class="flex justify-center mb-6">
+                <button id="btnAgregarReserva" class="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition flex items-center">
+                    <i class="fas fa-plus-circle mr-2"></i>Nueva Reserva
+                </button>
+            </div>
+            
+            <!-- Filtros -->
+            <div class="bg-white p-4 rounded-lg shadow mb-6">
+                <div class="flex flex-col md:flex-row gap-4 justify-center items-end">
+                    <div class="w-full md:w-auto">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Filtrar por fecha</label>
+                        <input type="date" id="filtroFecha" class="border rounded-lg px-3 py-2 w-full">
+                    </div>
+                    <div class="w-full md:w-auto">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Filtrar por estado</label>
+                        <select id="filtroEstado" class="border rounded-lg px-3 py-2 w-full">
+                            <option value="">Todos</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Confirmada">Confirmada</option>
+                            <option value="Cancelada">Cancelada</option>
+                            <option value="Finalizada">Finalizada</option>
+                            <option value="No Show">No Show</option>
+                        </select>
+                    </div>
+                    <div class="w-full md:w-auto">
+                        <button id="btnAplicarFiltros" class="bg-emerald-600 text-white rounded-lg px-4 py-2 hover:bg-emerald-700 transition w-full">Aplicar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabla de reservas -->
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Personas</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hora</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mesa</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ocasión</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyReservas" class="divide-y divide-gray-200">
+                            <!-- Las reservas se cargarán aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex justify-center">
+                <button id="btnVolverMesas" class="bg-gray-600 text-white rounded-lg px-4 py-2 hover:bg-gray-700 transition flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i>Volver a Mesas
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contenedor para mensajes -->
+    <div id="contenedorMensajes" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+    <script src="scrip.js"></script>
+</body>
+</html>
