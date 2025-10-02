@@ -393,24 +393,32 @@
             </div>
 
             <!-- contenido: permite scroll interno -->
-            <div class="p-5 space-y-4 overflow-auto flex-1">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Nombre De La Mesa *</label>
-                    <input id="am-nombre" type="text" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
-                    <span id="error-nombre" class="text-red-600 text-sm hidden"></span>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Capacidad *</label>
-                    <input id="am-capacidad" type="number" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="EJ: 4">
-                    <span id="error-capacidad" class="text-red-600 text-sm hidden"></span>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Ubicación</label>
-                    <input id="am-ubicacion" type="text" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="EJ: Jardín">
-                    <span id="error-ubicacion" class="text-red-600 text-sm hidden"></span>
-                </div>
-                
-<div id="am-estado-wrapper" class="hidden">
+          
+            <!-- ...existing code... -->
+<div class="p-5 space-y-4">
+    <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Número de mesa *</label>
+        <input id="am-numero" type="number" min="1" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Ej: 1">
+        <span id="error-numero" class="text-red-600 text-sm hidden"></span>
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
+        <p id="am-nombre-display" class="text-gray-700 font-medium">mesa-</p>
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Capacidad *</label>
+        <input id="am-capacidad" type="number" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="EJ: 4">
+        <span id="error-capacidad" class="text-red-600 text-sm hidden"></span>
+    </div>
+    <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Ubicación</label>
+        <input id="am-ubicacion" type="text" class="w-full border rounded-lg px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="EJ: Jardín">
+        <span id="error-ubicacion" class="text-red-600 text-sm hidden"></span>
+    </div>
+
+    <div id="am-estado-wrapper" class="hidden">
         <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
         <select id="am-estado" class="w-full border rounded-lg px-3 py-2">
             <option value="disponible">Disponible</option>
@@ -418,8 +426,8 @@
         </select>
         <p class="text-sm text-gray-500 mt-1">El estado "Ocupada" se gestiona automáticamente por las reservas.</p>
     </div>
-            </div>
-            
+</div>
+<!-- ...existing code... -->
             <!-- footer: fijo dentro del modal -->
             <div class="p-5 border-t flex gap-3 justify-end flex-shrink-0">
                 <button id="am-cancelar" type="button" class="btn-secondary">Cancelar</button>

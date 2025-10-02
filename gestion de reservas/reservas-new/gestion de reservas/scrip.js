@@ -373,6 +373,7 @@ function cargarMesa() {
 // ...existing code...
 
 // ...existing code...
+// ...existing code...
 function mostrarDetalleMesa(mesa) {
     const modal = document.getElementById('detalleMesa');
     if (!modal) return;
@@ -422,11 +423,17 @@ function mostrarDetalleMesa(mesa) {
     }
     if (btnReservar) {
         btnReservar.onclick = () => {
+            // Si la mesa está deshabilitada, no abrir modal y mostrar mensaje
+            if (String(mesa.estado).toLowerCase() === 'deshabilitada') {
+                mostrarMensaje('Esta mesa está deshabilitada y no se puede reservar.', 'error');
+                return;
+            }
             cerrarModalDetalle();
             abrirModalReserva(mesa.id);
         };
     }
 }
+// ...existing code...
 // ...existing code...
 
         function cerrarModalDetalle() {
@@ -465,34 +472,47 @@ function abrirModalEditarMesa(mesaId) {
     const mesa = mesas.find(m => String(m.id) === String(mesaId));
     if (!mesa) return mostrarMensaje('Mesa no encontrada', 'error');
 
-    const inNombre = document.getElementById('am-nombre');
-    const inCap = document.getElementById('am-capacidad');
-    const inUb = document.getElementById('am-ubicacion');
+    const numEl = document.getElementById('am-numero');
+    const nombreDisplay = document.getElementById('am-nombre-display');
+    const capEl = document.getElementById('am-capacidad');
+    const ubEl = document.getElementById('am-ubicacion');
     const estadoWrap = document.getElementById('am-estado-wrapper');
     const estadoSelect = document.getElementById('am-estado');
     const botonGuardar = document.getElementById('am-guardar');
     const titulo = document.getElementById('am-titulo');
     const modal = document.getElementById('agregarMesa');
 
-    if (inNombre) inNombre.value = mesa.nombre || '';
-    if (inCap) inCap.value = mesa.capacidad ?? '';
-    if (inUb) inUb.value = mesa.ubicacion || '';
+    // extraer número desde nombre actual si existe formato mesa-N
+    let nro = '';
+    const match = String(mesa.nombre || '').match(/^mesa-(\d+)$/i);
+    if (match) nro = match[1];
 
-    // mostrar select estado y setear valor seguro:
+    if (numEl) numEl.value = nro;
+    if (nombreDisplay) nombreDisplay.textContent = `mesa-${nro || ''}`;
+    if (capEl) capEl.value = mesa.capacidad ?? '';
+    if (ubEl) ubEl.value = mesa.ubicacion || '';
+
     if (estadoWrap) estadoWrap.classList.remove('hidden');
-    // permitir seleccionar solo 'disponible' o 'deshabilitada'
     if (estadoSelect) {
         if (mesa.estado === 'deshabilitada') estadoSelect.value = 'deshabilitada';
-        else estadoSelect.value = 'disponible'; // si estaba 'ocupada' o cualquier otro valor, mostrar 'disponible'
+        else estadoSelect.value = 'disponible';
     }
 
     if (botonGuardar) botonGuardar.dataset.editarId = mesa.id;
     if (titulo) titulo.textContent = 'Editar Mesa';
 
-    document.getElementById('error-nombre')?.classList.add('hidden');
+    document.getElementById('error-numero')?.classList.add('hidden');
     document.getElementById('error-capacidad')?.classList.add('hidden');
 
     if (modal) modal.classList.remove('hidden');
+
+    // actualizar display al cambiar numero
+    if (numEl) {
+        numEl.addEventListener('input', () => {
+            const v = numEl.value ? `mesa-${String(numEl.value).trim()}` : 'mesa-';
+            nombreDisplay.textContent = v;
+        }, { once: false });
+    }
 }
 
 function validarNombreMesa(nombre, idExcluir = null) {
@@ -519,51 +539,88 @@ function validarNombreMesa(nombre, idExcluir = null) {
 
 
 
+function validarNumeroMesa(numero, idExcluir = null) {
+    const elError = document.getElementById('error-numero');
+    if (numero === null || numero === undefined || numero === '') {
+        if (elError) { elError.textContent = 'El número de la mesa es obligatorio.'; elError.classList.remove('hidden'); }
+        return false;
+    }
+    const nro = parseInt(numero, 10);
+    if (isNaN(nro) || nro <= 0) {
+        if (elError) { elError.textContent = 'Número de mesa inválido.'; elError.classList.remove('hidden'); }
+        return false;
+    }
 
+    const mesas = getMesas() || [];
+    const nombreCompleto = `mesa-${nro}`;
+    const existe = mesas.some(m => {
+        if (idExcluir && String(m.id) === String(idExcluir)) return false;
+        return String(m.nombre || '').trim().toLowerCase() === nombreCompleto.toLowerCase();
+    });
+    if (existe) {
+        if (elError) { elError.textContent = 'Ya existe una mesa con ese número.'; elError.classList.remove('hidden'); }
+        return false;
+    }
+
+    if (elError) elError.classList.add('hidden');
+    return true;
+}
+
+// Actualizar abrir/llenado del modal para usar numero + mostrar nombre completo
 function abrirModalAgregarMesa() {
-    const inNombre = document.getElementById('am-nombre');
-    const inCap = document.getElementById('am-capacidad');
-    const inUb = document.getElementById('am-ubicacion');
+    const numEl = document.getElementById('am-numero');
+    const nombreDisplay = document.getElementById('am-nombre-display');
+    const capEl = document.getElementById('am-capacidad');
+    const ubEl = document.getElementById('am-ubicacion');
     const estadoWrap = document.getElementById('am-estado-wrapper');
     const estadoSelect = document.getElementById('am-estado');
     const botonGuardar = document.getElementById('am-guardar');
     const titulo = document.getElementById('am-titulo');
     const modal = document.getElementById('agregarMesa');
 
-    if (inNombre) inNombre.value = '';
-    if (inCap) inCap.value = '';
-    if (inUb) inUb.value = '';
+    if (numEl) numEl.value = '';
+    if (nombreDisplay) nombreDisplay.textContent = 'mesa-';
+    if (capEl) capEl.value = '';
+    if (ubEl) ubEl.value = '';
     if (estadoSelect) estadoSelect.value = 'disponible';
     if (estadoWrap) estadoWrap.classList.add('hidden');
     if (botonGuardar && botonGuardar.dataset) delete botonGuardar.dataset.editarId;
     if (titulo) titulo.textContent = 'Agregar Mesa';
-    // ocultar errores previos
-    document.getElementById('error-nombre')?.classList.add('hidden');
+
+    document.getElementById('error-numero')?.classList.add('hidden');
     document.getElementById('error-capacidad')?.classList.add('hidden');
     document.getElementById('error-ubicacion')?.classList.add('hidden');
 
     if (modal) modal.classList.remove('hidden');
+
+    // actualizar display al cambiar numero
+    if (numEl) {
+        numEl.addEventListener('input', () => {
+            const v = numEl.value ? `mesa-${String(numEl.value).trim()}` : 'mesa-';
+            nombreDisplay.textContent = v;
+        }, { once: false });
+    }
 }
         function cerrarModalAgregarMesa() {
             const modal = document.getElementById('agregarMesa');
             if (modal) modal.classList.add('hidden');
         }
 function guardarMesa() {
-    const nombreEl = document.getElementById('am-nombre');
+    const numEl = document.getElementById('am-numero');
     const capEl = document.getElementById('am-capacidad');
     const ubEl = document.getElementById('am-ubicacion');
     const estadoSelect = document.getElementById('am-estado');
     const botonGuardar = document.getElementById('am-guardar');
 
-    if (!nombreEl || !capEl) return mostrarMensaje('Formulario de mesa incompleto', 'error');
+    if (!numEl || !capEl) return mostrarMensaje('Formulario de mesa incompleto', 'error');
 
-    const nombre = (nombreEl.value || '').trim();
+    const numero = String(numEl.value || '').trim();
     const capacidad = parseInt(capEl.value, 10);
     const ubicacion = (ubEl?.value || '').trim();
     const editarId = botonGuardar?.dataset?.editarId || null;
 
-    // validar nombre no vacío y único
-    if (!validarNombreMesa(nombre, editarId)) return;
+    // validar numero obligatorio y unico
+    if (!validarNumeroMesa(numero, editarId)) return;
 
     if (isNaN(capacidad) || capacidad <= 0) {
         const el = document.getElementById('error-capacidad');
@@ -574,21 +631,19 @@ function guardarMesa() {
     }
 
     const mesas = getMesas() || [];
+    const nombreCompleto = `mesa-${parseInt(numero, 10)}`;
 
     if (editarId) {
         const idx = mesas.findIndex(m => String(m.id) === String(editarId));
         if (idx === -1) return mostrarMensaje('Mesa a editar no encontrada', 'error');
-
-        // obtener nuevo estado desde el select solo si existe y es válido
         const nuevoEstadoRaw = estadoSelect ? String(estadoSelect.value).toLowerCase() : null;
         const permitido = ['disponible', 'deshabilitada'];
         const estadoFinal = (nuevoEstadoRaw && permitido.includes(nuevoEstadoRaw)) ? nuevoEstadoRaw : (mesas[idx].estado || 'disponible');
 
-        mesas[idx] = { ...mesas[idx], nombre, capacidad, ubicacion, estado: estadoFinal };
+        mesas[idx] = { ...mesas[idx], nombre: nombreCompleto, capacidad, ubicacion, estado: estadoFinal };
     } else {
-        // crear nueva mesa siempre con estado 'disponible' por defecto
         const nuevoId = getNextMesaId();
-        mesas.push({ id: nuevoId, nombre, capacidad, ubicacion, estado: 'disponible' });
+        mesas.push({ id: nuevoId, nombre: nombreCompleto, capacidad, ubicacion, estado: 'disponible' });
     }
 
     if (saveMesas(mesas)) {
@@ -599,6 +654,7 @@ function guardarMesa() {
         mostrarMensaje('Error al guardar mesa', 'error');
     }
 }
+
         function eliminarMesa(mesaId) {
             const mesas = getMesas();
             const mesasActualizadas = mesas.filter(m => m.id !== mesaId);
@@ -1044,27 +1100,42 @@ function normalizarOcasiones() {
 // ...existing code...
 // ...existing code...
 // ...existing code...
+// ...existing code...
+
+// ...existing code...
+// ...existing code...
+// ...existing code...
+// ...existing code...
 function cargarReservas(filtroFecha = null, filtroEstado = null) {
     const tbody = document.getElementById('tbodyReservas');
     if (!tbody) return;
     tbody.innerHTML = '';
 
-    let reservas = getReservas();
-    if (filtroFecha) reservas = reservas.filter(r => r.fechaReserva === filtroFecha);
-    if (filtroEstado) reservas = reservas.filter(r => r.estado === filtroEstado);
+    const reservas = getReservas();
+    let lista = reservas || [];
+    if (filtroFecha) lista = lista.filter(r => r.fechaReserva === filtroFecha);
+    if (filtroEstado) lista = lista.filter(r => r.estado === filtroEstado);
 
-    if (!reservas || reservas.length === 0) {
+    if (!lista || lista.length === 0) {
         tbody.innerHTML = `<tr><td colspan="9" class="px-4 py-4 text-center text-gray-500">No hay reservas</td></tr>`;
         return;
     }
 
-    reservas.forEach(reserva => {
+    lista.forEach(reserva => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-gray-50 fade-in';
         const fechaFormateada = formatearFecha(reserva.fechaReserva);
         const nombreMesa = obtenerNombreMesa(reserva.idMesaAsignada);
         const horario = `${reserva.horaInicioReserva} - ${reserva.horaFinReserva}`;
         const iconUrl = getIconForOcasion(reserva.ocasionEspecial);
+
+        const estado = String(reserva.estado || '');
+        // Bloquear acciones para estados históricos y también para reservas finalizadas
+        const isBlocked = (estado === 'No Show' || estado === 'Cancelada' || estado === 'Finalizada');
+
+        const editarAttrs = isBlocked ? 'disabled aria-disabled="true" class="editar-reserva opacity-50 cursor-not-allowed mr-2 text-blue-300"' : 'class="editar-reserva text-blue-600 hover:text-blue-800 mr-2"';
+        const pagarAttrs = isBlocked ? 'disabled aria-disabled="true" class="pagar-reserva opacity-50 cursor-not-allowed mr-2 text-green-300"' : 'class="pagar-reserva text-green-600 hover:text-green-800 mr-2"';
+        const eliminarAttrs = isBlocked ? 'disabled aria-disabled="true" class="eliminar-reserva opacity-50 cursor-not-allowed text-red-300"' : 'class="eliminar-reserva text-red-600 hover:text-red-800"';
 
         tr.innerHTML = `
             <td class="px-4 py-3 font-medium">${reserva.idReserva}</td>
@@ -1080,26 +1151,59 @@ function cargarReservas(filtroFecha = null, filtroEstado = null) {
                 <span class="reserva-estado ${getClaseEstadoReserva(reserva.estado)}">${reserva.estado}</span>
             </td>
             <td class="px-4 py-3">
-                <button class="editar-reserva text-blue-600 hover:text-blue-800 mr-2" data-id="${reserva.idReserva}" title="Editar"><i class="fas fa-edit"></i></button>
-                <button class="pagar-reserva text-green-600 hover:text-green-800 mr-2" data-id="${reserva.idReserva}" title="Pagar"><i class="fas fa-money-bill"></i></button>
-                <button class="eliminar-reserva text-red-600 hover:text-red-800" data-id="${reserva.idReserva}" title="Eliminar"><i class="fas fa-trash"></i></button>
+                <button ${editarAttrs} data-id="${reserva.idReserva}" title="${isBlocked ? 'Reserva bloqueada: no editable' : 'Editar'}"><i class="fas fa-edit"></i></button>
+                <button ${pagarAttrs} data-id="${reserva.idReserva}" title="${isBlocked ? 'Reserva bloqueada: no pagable' : 'Pagar'}"><i class="fas fa-money-bill"></i></button>
+                <button ${eliminarAttrs} data-id="${reserva.idReserva}" title="${isBlocked ? 'Reserva bloqueada: no eliminable' : 'Eliminar'}"><i class="fas fa-trash"></i></button>
             </td>
         `;
         tbody.appendChild(tr);
     });
 
-    // Delegación de eventos - editar, pagar, eliminar
-    tbody.querySelectorAll('.editar-reserva').forEach(btn => btn.addEventListener('click', () => editarReserva(btn.dataset.id)));
-    tbody.querySelectorAll('.pagar-reserva').forEach(btn => btn.addEventListener('click', () => mostrarConfirmacion('¿Está seguro de marcar esta reserva como pagada?', () => setReservaEstado(btn.dataset.id, 'Finalizada'))));
-    tbody.querySelectorAll('.eliminar-reserva').forEach(btn => btn.addEventListener('click', () => mostrarConfirmacion('¿Está seguro de eliminar esta reserva? Esta acción no se puede deshacer.', () => eliminarReserva(btn.dataset.id))));
+    // Delegación de eventos - usar estado actual desde getReservas() para decidir permitir acción
+    tbody.querySelectorAll('.editar-reserva').forEach(btn => btn.addEventListener('click', (e) => {
+        const id = btn.dataset.id;
+        const r = (getReservas() || []).find(x => String(x.idReserva) === String(id));
+        if (!r) return mostrarMensaje('Reserva no encontrada', 'error');
+        if (r.estado === 'No Show' || r.estado === 'Cancelada' || r.estado === 'Finalizada') {
+            mostrarMensaje('Esta reserva está bloqueada y no se puede editar.', 'error');
+            return;
+        }
+        editarReserva(id);
+    }));
+
+    tbody.querySelectorAll('.pagar-reserva').forEach(btn => btn.addEventListener('click', (e) => {
+        const id = btn.dataset.id;
+        const r = (getReservas() || []).find(x => String(x.idReserva) === String(id));
+        if (!r) return mostrarMensaje('Reserva no encontrada', 'error');
+        if (r.estado === 'No Show' || r.estado === 'Cancelada' || r.estado === 'Finalizada') {
+            mostrarMensaje('Esta reserva no se puede pagar.', 'error');
+            return;
+        }
+        mostrarConfirmacion('¿Está seguro de marcar esta reserva como pagada?', () => setReservaEstado(id, 'Finalizada'));
+    }));
+
+    tbody.querySelectorAll('.eliminar-reserva').forEach(btn => btn.addEventListener('click', (e) => {
+        const id = btn.dataset.id;
+        const r = (getReservas() || []).find(x => String(x.idReserva) === String(id));
+        if (!r) return mostrarMensaje('Reserva no encontrada', 'error');
+        if (r.estado === 'No Show' || r.estado === 'Cancelada' || r.estado === 'Finalizada') {
+            mostrarMensaje('Esta reserva está bloqueada y no se puede eliminar.', 'error');
+            return;
+        }
+        mostrarConfirmacion('¿Está seguro de eliminar esta reserva? Esta acción no se puede deshacer.', () => eliminarReserva(id));
+    }));
+
     // Abrir imagen ampliada al hacer click (delegación)
     tbody.addEventListener('click', (e) => {
         const img = e.target.closest && e.target.closest('.ocasion-img');
-        if (img) {
-            abrirImagenModal(img.dataset.src || img.src);
-        }
+        if (img) abrirImagenModal(img.dataset.src || img.src);
     });
 }
+// ...existing code...
+// ...existing code...
+// ...existing code...
+// ...existing code...
+// ...existing code...
 // ...existing code...
 
 // Funciones para modal de imagen
