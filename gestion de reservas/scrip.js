@@ -1445,3 +1445,48 @@ document.addEventListener('DOMContentLoaded', () => {
             const el = document.getElementById(id);
             if (el) el.addEventListener(evt, fn);
         }
+(function setupAutoRefresh() {
+    const INTERVAL_MS = 10000; // ajustar (ms)
+
+    function safeRefresh() {
+        try {
+            // llamadas seguras: envuélvelas en typeof checks
+            if (typeof actualizarEstadosMesas === 'function') actualizarEstadosMesas();
+            if (typeof cargarMesa === 'function') cargarMesa();
+            const seccionReservas = document.getElementById('seccionReservas');
+            if (seccionReservas && !seccionReservas.classList.contains('hidden') && typeof cargarReservas === 'function') cargarReservas();
+            // actualizar timestamp UI si lo tienes
+            const lastEl = document.getElementById('last-update');
+            if (lastEl) lastEl.textContent = `Última actualización: ${new Date().toLocaleTimeString()}`;
+        } catch (err) {
+            console.error('[AutoRefresh] error durante refresh:', err);
+            // no lanzamos: mantener intervalo funcionando
+        }
+    }
+
+    // iniciar polling periódico
+    let timer = null;
+    function start() {
+        if (timer) clearInterval(timer);
+        safeRefresh(); // primera ejecución inmediata
+        timer = setInterval(safeRefresh, INTERVAL_MS);
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    // sincronizar entre pestañas
+    window.addEventListener('storage', (e) => {
+        if (!e.key) return;
+        if (['mesas','reservas','nextMesaId','nextReservaId'].includes(e.key)) safeRefresh();
+    });
+
+    // refrescar al volver a la pestaña
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) safeRefresh(); });
+
+    // iniciar cuando el DOM esté listo
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start);
+    } else start();
+
+    // exponer controles opcionales (útil para depuración)
+    window.__autoRefresh = { start, stop, safeRefresh };
+})();
