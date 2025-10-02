@@ -1,0 +1,11 @@
+Model Information:
+* title:	Medieval Character
+* source:	https://sketchfab.com/3d-models/medieval-character-92584cd390424192b5e77cbb002de4a8
+* author:	kitington (https://sketchfab.com/kitington)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Medieval Character" (https://sketchfab.com/3d-models/medieval-character-92584cd390424192b5e77cbb002de4a8) by kitington (https://sketchfab.com/kitington) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

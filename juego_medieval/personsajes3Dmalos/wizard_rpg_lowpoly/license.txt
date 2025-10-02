@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wizard RPG LowPoly
+* source:	https://sketchfab.com/3d-models/wizard-rpg-lowpoly-9741551bf01b42ac936a9e7c7d9b984b
+* author:	Ctool (https://sketchfab.com/ctool)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wizard RPG LowPoly" (https://sketchfab.com/3d-models/wizard-rpg-lowpoly-9741551bf01b42ac936a9e7c7d9b984b) by Ctool (https://sketchfab.com/ctool) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

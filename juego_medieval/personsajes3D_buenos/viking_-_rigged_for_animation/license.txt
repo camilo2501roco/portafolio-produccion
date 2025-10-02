@@ -1,0 +1,11 @@
+Model Information:
+* title:	Viking - rigged for animation
+* source:	https://sketchfab.com/3d-models/viking-rigged-for-animation-79321179bafb4d558f0cd6a4a014ba9a
+* author:	Andy Woodhead (https://sketchfab.com/Andywoodhead)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Viking - rigged for animation" (https://sketchfab.com/3d-models/viking-rigged-for-animation-79321179bafb4d558f0cd6a4a014ba9a) by Andy Woodhead (https://sketchfab.com/Andywoodhead) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

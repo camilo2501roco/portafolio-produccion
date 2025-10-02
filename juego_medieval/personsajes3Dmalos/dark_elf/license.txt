@@ -1,0 +1,11 @@
+Model Information:
+* title:	dark Elf
+* source:	https://sketchfab.com/3d-models/dark-elf-a388064c9df8487e9dbf5f51d4212cae
+* author:	Jonas_Hilschmann (https://sketchfab.com/Jonas.Hilschmann)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "dark Elf" (https://sketchfab.com/3d-models/dark-elf-a388064c9df8487e9dbf5f51d4212cae) by Jonas_Hilschmann (https://sketchfab.com/Jonas.Hilschmann) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

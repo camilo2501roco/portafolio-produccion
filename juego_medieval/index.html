@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Video de fondo — Prueba</title>
+
+<!-- Fuentes -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cinzel+Decorative:wght@700;900&family=Alegreya+SC:wght@700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+  html, body { height: 100%; margin: 0; }
+  body { display: grid; place-items: center; background: #000; color: #fff; }
+
+  /* Video full-screen detrás */
+  .bg-video{
+    position: fixed; inset: 0; z-index: -1;
+    width: 100%; height: 100%; object-fit: cover;
+  }
+
+  /* Contenedor central encima del pergamino del video */
+  .ui{
+    width: min(100%, 980px);
+    margin: 0 auto;
+    padding: 28px 22px;
+    display: grid;
+    gap: 16px;
+    justify-items: center;
+  }
+
+  /* Título (se queda tu misma fuente/estilo) */
+  .titulo-medieval-epico{
+    font-size: 60px;
+    font-family: "Cinzel Decorative","Cinzel",serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .035em;
+    background: linear-gradient(#e95f04 0%, #b56707 55%, #5d4027 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    -webkit-text-stroke: 0.9px #2f281f;
+    text-shadow: 0 .5px 0 rgba(251,182,7,.53), 0 2px 4px rgba(0,0,0,.45), 0 8px 18px rgba(0,0,0,.35);
+    paint-order: stroke fill;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Botón medieval base */
+  :root{ --metal-1:#6f665c; --metal-2:#2a231c; --edge-light:#fdf6e7; }
+  .btn-medieval{
+    --pad-x: 18px; --pad-y: 8px;
+    display:inline-block;
+    padding: var(--pad-y) var(--pad-x);
+    font: 800 18px/1.1 "Cinzel", serif;
+    letter-spacing:.02em;
+    color: #2a1f14; text-decoration:none;
+    position:relative; border-radius: 10px; cursor:pointer;
+    transition: transform .12s ease, filter .2s ease;
+    background:
+      radial-gradient(120% 200% at 50% -40%, #fff8e9 0%, transparent 60%),
+      linear-gradient(#f5edd7, #ecd6ac 55%, #d1a66a 75%, #b6813d 100%);
+    box-shadow:
+      inset 0 2px 0 var(--edge-light),
+      inset 0 -2px 0 rgba(0,0,0,.25),
+      0 1px 0 rgba(255,255,255,.35),
+      0 6px 18px rgba(0,0,0,.35);
+    border: 1px solid transparent;
+  
+  }
+  .btn-medieval::before{
+    content:""; position:absolute; inset:2px 2px 50% 2px; border-radius: 8px 8px 0 0;
+    background: linear-gradient( to bottom, rgba(255,255,255,.35), rgba(255,255,255,0) 80% );
+    pointer-events:none; mix-blend-mode: screen;
+  }
+  .btn-medieval::after{
+    content:""; position:absolute; left:8px; right:8px; bottom:-4px; height:10px;
+    background: radial-gradient(60% 100% at 50% 0%, rgba(255,160,40,.35), rgba(0,0,0,0));
+    filter: blur(2px); pointer-events:none;
+  }
+  .btn-medieval:hover{ filter: brightness(1.05); transform: translateY(-1px); }
+  .btn-medieval:active{ transform: translateY(1px); }
+
+  /* Tamaño pequeño para todos los botones */
+  .btn-sm{
+    --pad-x: 14px; --pad-y: 7px;
+    font-size: 16px;
+    border-radius: 9px;
+  }
+
+  /* Panel de descripción tipo pergamino */
+  .desc-panel{
+    width: min(100%, 820px);
+    padding: 18px 22px;
+    border-radius: 14px;
+    border: 1px solid rgba(181,150,90,.8);
+    background:
+      radial-gradient(120% 200% at 50% -40%, rgba(255,255,255,.45) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(249,240,210,.92), rgba(233,213,168,.90) 55%, rgba(217,184,126,.88) 100%);
+    box-shadow: 0 10px 24px rgba(0,0,0,.35), inset 0 0 22px rgba(0,0,0,.08);
+    backdrop-filter: blur(2px);
+  }
+  .desc-text{
+    margin: 0;
+    color: #5a3b1a;                 /* marrón */
+    font-family: "IM Fell English","Alegreya SC",serif;  /* escritura antigua */
+    font-size: 20px;
+    line-height: 1.45;
+    text-wrap: pretty;
+  }
+
+  /* Cursor parpadeante para el typewriter */
+  .desc-text.typing::after{
+    content: "▌"; margin-left: 4px; opacity:.8;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Filas de layout: top (desc), cuerpo (texto), música a la izquierda, navegación al final */
+  .row-top{ width:100%; display:flex; justify-content:center; }
+  .row-music{ width:100%; display:flex; justify-content:center; }
+  .nav-links{ width:100%; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+
+  <!-- VIDEO DE FONDO -->
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="Generated File October 01, 2025 - 12_26PM.mp4" type="video/mp4">
+  </video>
+
+  <!-- UI central -->
+  <div class="ui">
+    <h1 class="titulo-medieval-epico">juego <span class="t-lanza">de </span> oz</h1>
+
+    <!-- Botón Descripción: ARRIBA, CENTRADO y PEQUEÑO -->
+    <div class="row-top">
+      <button id="btn-desc" class="btn-medieval btn-sm">Descripción</button>
+    </div>
+
+    <!-- Texto de Descripción -->
+    <div class="desc-panel">
+      <p id="desc-text" class="desc-text"></p>
+    </div>
+
+    <!-- Botón Música: ABAJO DEL TEXTO, IZQUIERDA -->
+    <div class="row-music">
+      <button id="toggle-bgm" class="btn-medieval btn-sm" aria-pressed="false" title="Música">Música: OFF</button>
+    </div>
+
+    <!-- Navegación: Héroes & Villanos (tú pones los href) -->
+    <nav class="nav-links">
+      <a class="btn-medieval btn-sm" id="btn-heroes"  href="heroes.html">Héroes</a>
+      <a class="btn-medieval btn-sm" id="btn-villanos" href="antagonistas.html">Villanos</a>
+    </nav>
+  </div>
+
+  <!-- AUDIO DE FONDO -->
+  <audio id="bgm" loop preload="auto">
+    <source src="Medieval Music – Cobblestone Village(MP3_160K).mp3" type="audio/mpeg">
+    <!-- <source src="musica_inicio.ogg" type="audio/ogg"> -->
+  </audio>
+
+<script>
+  /* ========= Configura aquí tu texto ========= */
+  const DESCRIPCION = "Forjado en los salones del pergamino eterno, este juego convoca a los héroes a cruzar tierras antiguas, jurar lealtades y reclamar la luz. Tu leyenda empieza en estas páginas.";
+  /* ========================================== */
+
+  const btnDesc = document.getElementById('btn-desc');
+  const out     = document.getElementById('desc-text');
+
+  let timer = null;
+  let i = 0;
+
+  function startTypewriter(text, speed = 28){
+    if (timer) { clearInterval(timer); timer = null; }
+    out.textContent = ""; i = 0;
+    out.classList.add('typing');
+
+    timer = setInterval(() => {
+      out.textContent = text.slice(0, i++);
+      if (i > text.length){
+        clearInterval(timer); timer = null;
+        out.classList.remove('typing');
+      }
+    }, speed);
+  }
+
+  // Botón Descripción: si está escribiendo, “salta” al final; si no, comienza.
+  btnDesc.addEventListener('click', () => {
+    if (timer){
+      clearInterval(timer); timer = null;
+      out.textContent = DESCRIPCION;
+      out.classList.remove('typing');
+    } else {
+      startTypewriter(DESCRIPCION);
+    }
+  });
+
+  // Música ON/OFF
+  const bgm = document.getElementById('bgm');
+  const btnMusic = document.getElementById('toggle-bgm');
+
+  btnMusic.addEventListener('click', async () => {
+    try{
+      if (bgm.paused){
+        await bgm.play();
+        btnMusic.setAttribute('aria-pressed', 'true');
+        btnMusic.textContent = 'Música: ON';
+      }else{
+        bgm.pause();
+        btnMusic.setAttribute('aria-pressed', 'false');
+        btnMusic.textContent = 'Música: OFF';
+      }
+    }catch(e){
+      console.warn('Audio error:', e);
+    }
+  });
+</script>
+</body>
+</html>

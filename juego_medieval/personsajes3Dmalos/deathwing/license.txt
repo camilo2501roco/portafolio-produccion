@@ -1,0 +1,11 @@
+Model Information:
+* title:	Deathwing
+* source:	https://sketchfab.com/3d-models/deathwing-be4e140645ff4cd1ba4b50443d697868
+* author:	João Lacerda (https://sketchfab.com/panc0)
+
+Model License:
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Deathwing" (https://sketchfab.com/3d-models/deathwing-be4e140645ff4cd1ba4b50443d697868) by João Lacerda (https://sketchfab.com/panc0) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)

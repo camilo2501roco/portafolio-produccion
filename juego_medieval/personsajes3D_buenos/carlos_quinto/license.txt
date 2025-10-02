@@ -1,0 +1,11 @@
+Model Information:
+* title:	Carlos Quinto
+* source:	https://sketchfab.com/3d-models/carlos-quinto-5f6fcb767c99456dbb057d076e213f50
+* author:	alessio.langella (https://sketchfab.com/alessio.langella)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Carlos Quinto" (https://sketchfab.com/3d-models/carlos-quinto-5f6fcb767c99456dbb057d076e213f50) by alessio.langella (https://sketchfab.com/alessio.langella) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

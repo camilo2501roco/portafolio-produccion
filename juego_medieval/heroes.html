@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Héroes 3D — UI Medieval Clara</title>
+
+  <!-- Tipografías heroicas -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cardo:wght@400;700&family=Uncial+Antiqua&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+
+  <style>
+  :root{
+    /* Paleta más viva */
+    --bg-deep:#0a1a12;
+    --emerald:#1ecb87;
+    --emerald-soft:rgba(30,203,135,.35);
+    --gold:#d8b46c;
+    --gold-strong:#f0c878;
+    --text:#221f1a;
+    --muted:#5e5a52;
+
+    /* Pergamino */
+    --papyrus:#eeba00;
+    --papyrus-2:#b69315;
+    --papyrus-edge:#cecb21;
+
+    /* Stats */
+    --hp:#e24c4c; --mp:#3c69d1; --agi:#1fbd7e;
+
+    /* Botones claros */
+    --edge-light:#fdf6e7; --metal-1:#6f665c; --metal-2:#2a231c;
+
+    /* ALTURA DEL HUD (ajústala a gusto) */
+    --hud-h: clamp(120px, 18vh, 180px);
+  }
+
+  html, body{
+    height:100vh; margin:0; overflow:hidden;
+    background:
+      radial-gradient(1200px 700px at 60% 10%, #143d2a 0%, #0c2619 55%, var(--bg-deep) 100%),
+      var(--bg-deep);
+    color:var(--text);
+    font-family:"Cardo", Georgia, serif;
+  }
+
+  /* ===== Layout: visor (izq) + selector (der) ===== */
+  .app{
+    display:grid;
+    grid-template-columns: 1fr 220px;
+    grid-template-rows: 1fr;
+    height:100vh;
+  }
+
+  /* ===== Selector de héroes (derecha) ===== */
+  .selector-heroes{
+    grid-column:2; grid-row:1;
+    background: linear-gradient(180deg, #c3a619 0%, #cba200 100%);
+    border-left:1px solid var(--papyrus-edge);
+    padding:16px 14px; display:grid; gap:16px; align-content:start; position:relative;
+  }
+  .selector-heroes::before{
+    content:""; position:absolute; inset:0;
+    background:
+      radial-gradient(420px 240px at 50% -30%, rgba(30,203,135,.18), transparent 70%),
+      repeating-linear-gradient(90deg, rgba(30,203,135,.08) 0 2px, transparent 2px 6px);
+    pointer-events:none;
+  }
+  .perfil-heroes{
+    width:96px; height:96px; object-fit:cover; display:block; margin:0 auto; cursor:pointer;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,.9);
+    box-shadow:
+      0 0 0 2px var(--emerald-soft) inset,
+      0 6px 18px rgba(8,35,24,.22),
+      0 0 14px rgba(30,203,135,.25);
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+    background:#fff;
+    filter: saturate(1.05) contrast(1.02) brightness(1.02);
+  }
+  .perfil-heroes:hover{
+    transform: translateY(-4px) scale(1.03);
+    box-shadow:
+      0 0 0 2px rgba(255,255,255,.95) inset,
+      0 10px 24px rgba(8,35,24,.28),
+      0 0 22px rgba(30,203,135,.45);
+  }
+  .perfil-heroes.activo{
+    box-shadow:
+      0 0 0 2px var(--gold-strong) inset,
+      0 0 0 4px rgba(30,203,135,.45) inset,
+      0 12px 28px rgba(8,35,24,.32),
+      0 0 26px rgba(241,204,124,.55);
+  }
+
+  /* ===== Visor principal (izquierda) ===== */
+  .viewer-area{
+    grid-column:1; grid-row:1;
+    position:relative; display:grid;
+    grid-template-rows: 1fr var(--hud-h);  /* 3D arriba, pergamino abajo (más bajo) */
+    overflow:hidden;
+  }
+
+  /* Video de fondo */
+  .bg-video{
+    grid-row:1 / -1; grid-column:1;
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    z-index:0; pointer-events:none;
+    background:
+      radial-gradient(1200px 600px at 50% 10%, rgba(30,203,135,.28), transparent 70%),
+      linear-gradient(180deg, #113827, #0b2519);
+    filter: contrast(1.04) saturate(1.08) brightness(.98);
+  }
+
+  /* Vignette dorada */
+  .viewer-area::before{
+    content:""; position:absolute; inset:-2%;
+    background:
+      radial-gradient(1200px 500px at 50% 10%, rgba(255,255,255,.22), rgba(0,0,0,.18) 70%, rgba(0,0,0,.45) 100%),
+      radial-gradient(800px 800px at -10% 120%, rgba(30,203,135,.18), transparent 60%),
+      radial-gradient(800px 800px at 110% 120%, rgba(30,203,135,.18), transparent 60%);
+    z-index:0; pointer-events:none; mix-blend-mode: soft-light;
+  }
+
+  /* model-viewer */
+  model-viewer{
+    grid-row:1/2; grid-column:1;
+    position:relative; width:100%; height:100%;
+    display:none; background:transparent; --poster-color:transparent;
+    z-index:1;
+  }
+  model-viewer.visible{ display:block; }
+
+  /* ===== HUD Pergamino (abajo) ===== */
+  .hud{
+    grid-row:2/3; grid-column:1;
+    display:grid; grid-template-columns: 300px 1fr 280px; gap:12px; align-items:center;
+    padding:10px 14px; z-index:2; position:relative;
+    color:#2b2518;
+    background:
+      radial-gradient(160% 200% at 10% 0%, rgba(255,255,255,.55), rgba(0,0,0,0) 60%),
+      linear-gradient(180deg, var(--papyrus), var(--papyrus-2) 65%, #e8dab6 100%);
+    border-top:2px solid var(--papyrus-edge);
+    box-shadow: 0 -6px 24px rgba(0,0,0,.25) inset, 0 -2px 18px rgba(0,0,0,.25);
+  }
+  .hud::after{
+    content:""; position:absolute; inset:4px 6px; pointer-events:none;
+    background:
+      radial-gradient(2px 2px at 14% 24%, rgba(0,0,0,.05) 0 40%, transparent 42%) repeat,
+      radial-gradient(1.5px 1.5px at 72% 62%, rgba(0,0,0,.05) 0 40%, transparent 42%) repeat;
+    background-size: 180px 160px, 220px 200px;
+    opacity:.45; mix-blend-mode:multiply;
+  }
+
+  /* Tipografías del HUD (compactadas) */
+  .name{
+    font-family:"Uncial Antiqua", "Cinzel", serif;
+    font-weight:400; letter-spacing:.3px; font-size:22px;
+    color:#1c5b3d; text-shadow: 0 0 6px rgba(241,204,124,.35), 0 0 2px rgba(255,255,255,.75);
+  }
+  .role{
+    margin-top:2px; font-size:12px; letter-spacing:.4px; text-transform: uppercase;
+    color:#6b5f4a;
+  }
+  .scroll{
+    position:relative; padding:10px 12px; border-radius:12px;
+    font-family:"IM Fell English", "Cardo", serif; font-size:14px; line-height:1.4;
+    color:#2a2416;
+    background:
+      radial-gradient(120% 160% at 12% -10%, rgba(255,255,255,.6), rgba(0,0,0,0) 60%),
+      linear-gradient(180deg, #fff7de, #f2e3bc 60%, #ead7a9);
+    border:1px solid rgba(216,199,160,.95);
+    box-shadow: inset 0 0 26px rgba(0,0,0,.10), 0 6px 16px rgba(0,0,0,.10);
+  }
+
+  .stats{ display:grid; gap:8px; }
+  .stat{
+    display:grid; grid-template-columns: 22px 74px 1fr 48px; align-items:center; gap:8px;
+    font-size:13px; color:#1f1e1b;
+  }
+  .icon{ width:18px; height:18px; filter: drop-shadow(0 0 4px rgba(241,204,124,.35)); color:#684b1b; }
+  .label{ font-variant: small-caps; color:#4a453d; letter-spacing:.7px; }
+  .bar{
+    height:10px; background:#ecdfbe; border-radius:999px; overflow:hidden;
+    box-shadow: inset 0 0 6px rgba(0,0,0,.12); border:1px solid #d4c39c;
+  }
+  .bar > b{ display:block; height:100%; width:0%; border-radius:999px; transition:width .25s ease; box-shadow: 0 0 10px currentColor; }
+  .v-hp{ color:var(--hp);  background: linear-gradient(90deg, rgba(226,76,76,.45), rgba(226,76,76,1)); }
+  .v-mp{ color:var(--mp);  background: linear-gradient(90deg, rgba(60,105,209,.45), rgba(60,105,209,1)); }
+  .v-agi{color:var(--agi); background: linear-gradient(90deg, rgba(31,189,126,.45), rgba(31,189,126,1)); }
+  .num{ text-align:right; color:#2a2317; font-weight:700; }
+
+  /* ===== Botones (arriba izquierda) ===== */
+  .btn-medieval{
+    --pad-x: 14px; --pad-y: 7px;
+    display:inline-block;
+    padding: var(--pad-y) var(--pad-x);
+    font: 800 16px/1.1 "Cinzel", serif;
+    letter-spacing:.02em;
+    color:#2a1f14;
+    text-decoration:none;
+    position:relative; border-radius:9px; cursor:pointer;
+    transition: transform .12s ease, filter .2s ease;
+    background:
+      radial-gradient(120% 200% at 50% -40%, #fff8e9 0%, transparent 60%),
+      linear-gradient(#f5edd7, #ecd6ac 55%, #d1a66a 75%, #b6813d 100%);
+    box-shadow:
+      inset 0 2px 0 var(--edge-light),
+      inset 0 -2px 0 rgba(0,0,0,.25),
+      0 1px 0 rgba(255,255,255,.35),
+      0 6px 18px rgba(0,0,0,.35);
+    border:1px solid transparent;
+  }
+  .btn-medieval::before{
+    content:""; position:absolute; inset:2px 2px 50% 2px; border-radius:7px 7px 0 0;
+    background: linear-gradient( to bottom, rgba(255,255,255,.35), rgba(255,255,255,0) 80% );
+    pointer-events:none; mix-blend-mode: screen;
+  }
+  .btn-medieval:hover{ filter:brightness(1.05); transform: translateY(-1px); }
+  .btn-medieval:active{ transform: translateY(1px); }
+
+  .top-actions-left{
+    position:fixed; top:12px; left:12px; z-index:5;
+    display:flex; gap:10px; align-items:center;
+  }
+
+  /* Responsive */
+  @media (max-width: 1080px){
+    :root{ --hud-h: clamp(110px, 16vh, 160px); }
+    .app{ grid-template-columns: 1fr 170px; }
+    .hud{ grid-template-columns: 1fr; gap:10px; }
+    .name{ font-size: 20px; }
+    .scroll{ font-size: 13px; }
+  }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Visor -->
+    <main class="viewer-area">
+
+      <!-- Fondo de video — HÉROES -->
+      <video class="bg-video" autoplay muted loop playsinline preload="auto" id="bg-heroes">
+        <source src="personsajes3D_buenos/heroes-con-fondo.mp4" type="video/mp4">
+      </video>
+
+      <!-- Modelos 3D -->
+      <model-viewer id="elfo-3d"      src="personsajes3D_buenos/elfo_clerigo/scene.gltf"  auto-rotate></model-viewer>
+      <model-viewer id="caballero-3d" src="personsajes3D_buenos/knight_-_includes_file_for_3d_printing/scene.gltf"  auto-rotate></model-viewer>
+      <model-viewer id="escudero-3d"  src="personsajes3D_buenos/viking_-_rigged_for_animation/scene.gltf"  auto-rotate></model-viewer>
+      <model-viewer id="lancero-3d"   src="personsajes3D_buenos/carlos_quinto/scene.gltf"  auto-rotate></model-viewer>
+      <model-viewer id="vengadora-3d" src="personsajes3D_buenos/silksong__hornet_fanart/scene.gltf"  auto-rotate></model-viewer>
+      <model-viewer id="arquera-3d"   src="personsajes3D_buenos/arquera/scene.gltf"  auto-rotate></model-viewer>
+
+      <!-- HUD pergamino -->
+      <section class="hud" id="hud">
+        <div class="info-left">
+          <div class="name" id="hud-nombre">Elfo Clérigo</div>
+          <div class="role" id="hud-rol">Bendecido por la Luz</div>
+        </div>
+
+        <div class="scroll">
+          <p class="desc" id="hud-desc" style="margin:0">
+            Portador de antiguas plegarias élficas. Sana a los caídos y bendice las flechas aliadas.
+          </p>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-6.7-4.4-9.3-7C.7 11.9 1 8.4 3.5 6.7 6.3 4.9 9.1 6 12 9c2.9-3 5.7-4.1 8.5-2.3C23 8.4 23.3 11.9 21.3 14c-2.6 2.6-9.3 7-9.3 7z"/></svg>
+            <span class="label">Vitalidad</span>
+            <i class="bar"><b id="bar-hp" class="v-hp"></b></i>
+            <span class="num" id="num-hp">0</span>
+          </div>
+          <div class="stat">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 2a4 4 0 014 4c0 1.1-.45 2.1-1.18 2.83l-7.6 7.6a3 3 0 00-.72 1.16l-.83 2.5a1 1 0 01-1.9-.63l.84-2.52c.2-.6.54-1.14.98-1.58l7.6-7.6c.38-.38.6-.9.6-1.46A2 2 0 0011 4a2 2 0 00-2 2 1 1 0 11-2 0 4 4 0 014-4z"/></svg>
+            <span class="label">Maná</span>
+            <i class="bar"><b id="bar-mp" class="v-mp"></b></i>
+            <span class="num" id="num-mp">0</span>
+          </div>
+          <div class="stat">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4c-4 0-6 4-10 5 2 2 6 2 8 1-4 2-5 5-5 10 3-3 6-4 9-4s6 1 9 4c0-5-1-8-5-10 2 1 6 1 8-1-4-1-6-5-10-5z"/></svg>
+            <span class="label">Agilidad</span>
+            <i class="bar"><b id="bar-agi" class="v-agi"></b></i>
+            <span class="num" id="num-agi">0</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Selector de retratos (derecha) -->
+    <aside class="selector-heroes">
+      <img src="personsajes3D_buenos/perfil-elfo.png"        alt="Elfo"      class="perfil-heroes" data-target="elfo-3d">
+      <img src="personsajes3D_buenos/casco-metal.png"   alt="Caballero" class="perfil-heroes" data-target="caballero-3d">
+      <img src="personsajes3D_buenos/escudero-perfil.png"    alt="Escudero"  class="perfil-heroes" data-target="escudero-3d">
+      <img src="personsajes3D_buenos/lancero-perfil.png"     alt="Lancero"   class="perfil-heroes" data-target="lancero-3d">
+      <img src="personsajes3D_buenos/vengadora-perfil.png"   alt="Vengadora" class="perfil-heroes" data-target="vengadora-3d">
+      <img src="personsajes3D_buenos/arquera-perfil.png"     alt="Arquera"   class="perfil-heroes" data-target="arquera-3d">
+    </aside>
+  </div>
+
+  <!-- ===== Acciones superiores (izquierda) ===== -->
+  <div class="top-actions-left">
+    <a href="index.html" class="btn-medieval" title="Volver a la principal">← Principal</a>
+    <button id="toggle-bgm" class="btn-medieval" aria-pressed="false" title="Música">Música: OFF</button>
+  </div>
+
+  <!-- AUDIO DE FONDO (cambia la ruta a tu pista) -->
+  <audio id="bgm" loop preload="auto">
+    <source src="personsajes3D_buenos/audio-heroes.mp3" type="audio/mpeg">
+    <!-- <source src="personsajes3D_buenos/audio-heroes.ogg" type="audio/ogg"> -->
+  </audio>
+
+  <script>
+  // ===== Datos y lógica de héroes =====
+  const DATA = {
+    "elfo-3d":      { nombre:"Elfo Clérigo", rol:"Bendecido por la Luz",  hp:78, mp:95, agi:82,
+      desc:"Portador de antiguas plegarias élficas. Sana a los caídos y bendice las flechas aliadas." },
+    "caballero-3d": { nombre:"Caballero Real", rol:"Guardia del Reino",   hp:95, mp:35, agi:60,
+      desc:"Acero noble y juramento eterno. El escudo alza muros y su espada corta sombras." },
+    "escudero-3d":  { nombre:"Escudero Valiente", rol:"Protector",        hp:85, mp:20, agi:65,
+      desc:"Leal acompañante que nunca abandona la línea. Sostiene el frente cuando otros caen." },
+    "lancero-3d":   { nombre:"Lancero Imperial", rol:"Vanguardia",         hp:82, mp:28, agi:88,
+      desc:"Carga a gran velocidad y rompe formaciones. El primer choque siempre es suyo." },
+    "vengadora-3d": { nombre:"Vengadora Carmesí", rol:"Justiciera",        hp:72, mp:70, agi:92,
+      desc:"Rápida como el rayo; su filo busca tiranos. Nunca olvida una promesa." },
+    "arquera-3d":   { nombre:"Arquera del Alba", rol:"Francotiradora",     hp:68, mp:55, agi:96,
+      desc:"Ojos de halcón; cada disparo es un poema al amanecer. Su flecha guía a la esperanza." }
+  };
+
+  const perfiles = document.querySelectorAll('.perfil-heroes');
+  const viewers  = [...document.querySelectorAll('model-viewer')];
+
+  const elNombre = document.getElementById('hud-nombre');
+  const elRol    = document.getElementById('hud-rol');
+  const elDesc   = document.getElementById('hud-desc');
+
+  const bHP = document.getElementById('bar-hp');
+  const bMP = document.getElementById('bar-mp');
+  const bAG = document.getElementById('bar-agi');
+
+  const nHP = document.getElementById('num-hp');
+  const nMP = document.getElementById('num-mp');
+  const nAG = document.getElementById('num-agi');
+
+  function setBars(hp,mp,agi){
+    bHP.style.width = hp + '%'; nHP.textContent = hp;
+    bMP.style.width = mp + '%'; nMP.textContent = mp;
+    bAG.style.width = agi + '%'; nAG.textContent = agi;
+  }
+
+  function mostrar(id){
+    viewers.forEach(v => v.classList.toggle('visible', v.id === id));
+    perfiles.forEach(p => p.classList.toggle('activo', p.dataset.target === id));
+    const d = DATA[id]; if(!d) return;
+    elNombre.textContent = d.nombre;
+    elRol.textContent    = d.rol;
+    elDesc.textContent   = d.desc;
+    setBars(d.hp, d.mp, d.agi);
+  }
+
+  perfiles.forEach(p => p.addEventListener('click', () => mostrar(p.dataset.target)));
+  mostrar('elfo-3d'); // héroe inicial
+
+  // ===== Música: botón ON/OFF (arriba izquierda) =====
+  const bgm = document.getElementById('bgm');
+  const btnMusic = document.getElementById('toggle-bgm');
+
+  btnMusic.addEventListener('click', async () => {
+    try{
+      if (bgm.paused){
+        await bgm.play();
+        btnMusic.setAttribute('aria-pressed','true');
+        btnMusic.textContent = 'Música: ON';
+      } else {
+        bgm.pause();
+        btnMusic.setAttribute('aria-pressed','false');
+        btnMusic.textContent = 'Música: OFF';
+      }
+    }catch(e){
+      console.warn('Audio error:', e);
+    }
+  });
+  </script>
+</body>
+</html>
