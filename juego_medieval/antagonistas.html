@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Antagonistas 3D — UI Medieval</title>
+  <title>Antagonistas</title>
   <!-- Tipografías medievales -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cardo:wght@400;700&display=swap" rel="stylesheet">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-
+ <link rel="icon" href="icono.png" type="image/png" />
   <style>
   :root{
     --bg:#0b0b0d; --panel:#121217; --stroke:#2a2a36;
@@ -15,7 +15,7 @@
     --text:#e9e6dc; --muted:#bfb8a8;
     --blood:#b13c3c; --mana:#3c69b1; --wind:#67b16d;
 
-    /* para botones medievales */
+   
     --metal-1:#80786f; --metal-2:#2a241e; --edge-light:#fdf6e7;
   }
 
@@ -26,10 +26,8 @@
     font-family: "Cardo", Georgia, serif;
   }
 
-  /* Layout fijo: columna de retratos + visor */
   .app{ display:grid; grid-template-columns:180px 1fr; height:100vh; }
 
-  /* Columna de retratos estilo vitral */
   .tabla-personajes-malos{
     background: linear-gradient(180deg, #13131a 0%, #0f0f14 100%);
     border-right:1px solid #2b2b37;
@@ -70,21 +68,20 @@
       0 0 26px rgba(202,168,107,.32);
   }
 
-  /* VISOR en dos filas (3D arriba, HUD abajo) */
+  
   .viewer-area{
     position:relative; display:grid;
-    grid-template-rows: 1fr 190px; /* HUD más alto tipo juego */
+    grid-template-rows: 1fr 190px; 
     overflow:hidden;
   }
 
-  /* Video de fondo */
   .bg-video{
     grid-row:1 / -1; grid-column:1;
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     filter: contrast(1.05) saturate(1.05) brightness(.9);
     z-index:0; pointer-events:none;
   }
-  /* Vignette */
+
   .viewer-area::before{
     content:""; position:absolute; inset:-2%;
     background: radial-gradient(1200px 500px at 50% 10%, transparent 0%, rgba(0,0,0,.25) 70%, rgba(0,0,0,.65) 100%),
@@ -93,7 +90,7 @@
     z-index:0; pointer-events:none;
   }
 
-  /* 3D arriba */
+ 
   model-viewer{
     grid-row:1/2; grid-column:1;
     position:relative; width:100%; height:100%;
@@ -102,7 +99,6 @@
   }
   model-viewer.visible{ display:block; }
 
-  /* ===== HUD MEDIEVAL ABAJO ===== */
   .hud{
     grid-row:2/3; grid-column:1;
     display:grid; grid-template-columns: 320px 1fr 320px; gap:18px; align-items:center;
@@ -110,10 +106,10 @@
     background:
       radial-gradient(120% 200% at 50% 0%, rgba(38,30,20,.78) 0%, rgba(22,17,12,.82) 60%, rgba(12,10,8,.92) 100%),
       repeating-linear-gradient(135deg, rgba(255,255,255,.025) 0 2px, rgba(0,0,0,.02) 2px 4px);
-    border-top: 2px solid rgba(202,168,107,.45);
+    
     position:relative;
   }
-  /* Marco metálico con remaches */
+ 
   .hud::before, .hud::after{
     content:""; position:absolute; left:0; right:0; height:14px;
     background:
@@ -124,16 +120,12 @@
   }
   .hud::before{ top:-2px; border-top:1px solid rgba(255,255,255,.1); }
   .hud::after{ bottom:-2px; border-bottom:1px solid rgba(0,0,0,.6); opacity:.4; }
-  /* remaches */
+ 
   .rivets{
     position:absolute; inset:4px 8px; pointer-events:none; z-index:3;
-    background:
-      radial-gradient(circle at 12px 6px, rgba(255,255,255,.35) 0 2px, rgba(0,0,0,.7) 3px, transparent 4px) left top / 36px 18px repeat-x,
-      radial-gradient(circle at calc(100% - 12px) 6px, rgba(255,255,255,.35) 0 2px, rgba(0,0,0,.7) 3px, transparent 4px) right top / 36px 18px repeat-x;
-    mask: linear-gradient(#000, #000) top/100% 18px no-repeat, linear-gradient(#000, #000) bottom/100% 0 no-repeat;
+ 
   }
 
-  /* Columna izquierda: Nombre y rol */
   .info-left .name{
     font-family: "Cinzel", serif;
     font-weight:900; letter-spacing:.5px; font-size:26px;
@@ -145,7 +137,6 @@
     text-transform: uppercase;
   }
 
-  /* Centro: pergamino de descripción */
   .scroll{
     position:relative; padding:10px 14px; border-radius:8px;
     color:#f0ede5; font-size:14px; line-height:1.35;
@@ -165,7 +156,7 @@
   .scroll::before{ left:-6px; }
   .scroll::after{ right:-6px; transform: scaleX(-1); }
 
-  /* Derecha: barras con íconos */
+ 
   .stats{ display:grid; gap:10px; }
   .stat{
     display:grid; grid-template-columns: 26px 54px 1fr 48px; align-items:center; gap:8px;
@@ -184,10 +175,10 @@
   .v-agi{ color: var(--wind);  background: linear-gradient(90deg, rgba(103,177,109,.45), rgba(103,177,109,1)); }
   .num{ text-align:right; color:#e9e6dc; font-weight:700; text-shadow: 0 0 4px rgba(0,0,0,.6); }
 
-  /* Helper: ocultar tarjeta antigua si existiera */
+  
   .info-card{ display:none !important; }
 
-  /* ====== BOTONES SUPERIORES DERECHA ====== */
+  
   .btn-medieval{
     --pad-x: 14px; --pad-y: 7px;
     display:inline-block;
@@ -227,7 +218,7 @@
 </head>
 <body>
   <div class="app">
-    <!-- Retratos -->
+   
     <aside class="tabla-personajes-malos">
       <img src="personsajes3Dmalos/mago_malvado.png"       alt="Mago"   class="perfil" data-target="mago-3d">
       <img src="personsajes3Dmalos/duende_perfil.png"      alt="Duende" class="perfil" data-target="duende-3d">
@@ -237,57 +228,56 @@
       <img src="personsajes3Dmalos/perfil-bruja.png"       alt="Bruja"  class="perfil" data-target="bruja-3d">
     </aside>
 
-    <!-- Visor -->
+   
     <main class="viewer-area">
-      <!-- Fondo de video -->
+    
       <video class="bg-video" autoplay muted loop playsinline preload="auto">
         <source src="personsajes3Dmalos/fondo-antagonistas.mp4" type="video/mp4">
       </video>
 
-      <!-- Modelos 3D -->
+   
       <model-viewer id="dragon-3d" src="personsajes3Dmalos/deathwing/scene.gltf" auto-rotate></model-viewer>
       <model-viewer id="mago-3d"   src="personsajes3Dmalos/wizard_rpg_lowpoly/scene.gltf" auto-rotate></model-viewer>
       <model-viewer id="duende-3d" src="personsajes3Dmalos/updated_dobby_the_free_house_elf_-_retextured/scene.gltf" auto-rotate></model-viewer>
       <model-viewer id="orco-3d"   src="personsajes3Dmalos/ogro/scene.gltf" auto-rotate></model-viewer>
       <model-viewer id="ada-3d"    src="personsajes3Dmalos/dark_elf/scene.gltf" auto-rotate></model-viewer>
-      <!-- Si tu carpeta tiene espacios, usa %20 o renómbrala -->
+     
       <model-viewer id="bruja-3d"  src="personsajes3Dmalos/witch%20(1)/scene.gltf" auto-rotate></model-viewer>
 
-      <!-- HUD Medieval -->
+     
       <section class="hud" id="hud">
         <div class="rivets"></div>
 
-        <!-- Izquierda: nombre/rol -->
+       
         <div class="info-left">
           <div class="name" id="hud-nombre">Dragón de Fuego</div>
           <div class="role" id="hud-rol">Antagonista</div>
         </div>
 
-        <!-- Centro: pergamino -->
+        
         <div class="scroll">
           <p class="desc" id="hud-desc" style="margin:0">
             Antiguo guardián de lava; su rugido hace temblar la tierra.
           </p>
         </div>
 
-        <!-- Derecha: stats con íconos -->
         <div class="stats">
           <div class="stat">
-            <!-- Espada -->
+            
             <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.1 3l6.9 6.9-2.1 2.1-2-2-3.2 3.2 2 2-2.1 2.1-2-2-3.2 3.2-2.8-2.8 3.2-3.2-2-2L7.9 7 10 9.1 13.2 6l-2-2L13.3 1l.8.8z"/></svg>
             <span class="label">Fuerza</span>
             <i class="bar"><b id="bar-fuerza" class="v-fue"></b></i>
             <span class="num" id="num-fuerza">0</span>
           </div>
           <div class="stat">
-            <!-- Bastón -->
+           
             <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 2a4 4 0 014 4c0 1.1-.45 2.1-1.18 2.83l-7.6 7.6a3 3 0 00-.72 1.16l-.83 2.5a1 1 0 01-1.9-.63l.84-2.52c.2-.6.54-1.14.98-1.58l7.6-7.6c.38-.38.6-.9.6-1.46A2 2 0 0011 4a2 2 0 00-2 2 1 1 0 11-2 0 4 4 0 014-4z"/></svg>
             <span class="label">Magia</span>
             <i class="bar"><b id="bar-magia" class="v-mag"></b></i>
             <span class="num" id="num-magia">0</span>
           </div>
           <div class="stat">
-            <!-- Alas -->
+           
             <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4c-4 0-6 4-10 5 2 2 6 2 8 1-4 2-5 5-5 10 3-3 6-4 9-4s6 1 9 4c0-5-1-8-5-10 2 1 6 1 8-1-4-1-6-5-10-5z"/></svg>
             <span class="label">Agilidad</span>
             <i class="bar"><b id="bar-agilidad" class="v-agi"></b></i>
@@ -298,20 +288,19 @@
     </main>
   </div>
 
-  <!-- ===== Acciones superiores (derecha) ===== -->
   <div class="top-actions">
     <a href="index.html" class="btn-medieval iron" title="Volver a la principal">← Principal</a>
     <button id="toggle-bgm" class="btn-medieval iron" aria-pressed="false" title="Música">Música: OFF</button>
   </div>
 
-  <!-- AUDIO DE FONDO (cambia la ruta a tu pista) -->
+  
   <audio id="bgm" loop preload="auto">
     <source src="personsajes3Dmalos/audio para villanos.mp3" type="audio/mpeg">
-    <!-- <source src="personsajes3Dmalos/audio-ambiente.ogg" type="audio/ogg"> -->
+ 
   </audio>
 
   <script>
-  // ================== LÓGICA DE PÁGINA (YA LA TENÍAS) ==================
+
   const DATA = {
     "dragon-3d": { nombre:"Dragón de Fuego", rol:"Antagonista", fuerza:98, magia:75, agilidad:60,
       desc:"Antiguo guardián de lava; su rugido hace temblar la tierra. Devora ejércitos al caer la noche." },
@@ -359,7 +348,7 @@
   perfiles.forEach(p => p.addEventListener('click', () => mostrar(p.dataset.target)));
   mostrar('dragon-3d');
 
-  // ================== MÚSICA: BOTÓN SUPERIOR ==================
+ 
   const bgm = document.getElementById('bgm');
   const btnMusic = document.getElementById('toggle-bgm');
 

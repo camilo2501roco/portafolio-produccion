@@ -124,7 +124,7 @@ function setReservaEstado(idReserva, nuevoEstado) {
 
 function actualizarEstadosMesas() {
     const mesas = getMesas(), reservas = getReservas(), now = new Date();
-    const hoy = now.toISOString().split('T')[0], horaActual = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+    const hoy = localISODate(now), horaActual = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
     const mActual = timeToMinutes(horaActual);
 
     mesas.forEach(m => { if (m.estado !== 'deshabilitada') m.estado = 'disponible'; });
@@ -214,43 +214,70 @@ function cargarMesa() {
         grid.appendChild(card);
     });
 
-    const reservasHoy = getReservas().filter(r => r.fechaReserva === new Date().toISOString().split('T')[0] && r.estado !== 'Cancelada').length;
+    const reservasHoy = getReservas().filter(r => r.fechaReserva === localISODate() && r.estado !== 'Cancelada').length;
     document.getElementById('reservas-hoy').textContent = reservasHoy;
 }
 
 function mostrarDetalleMesa(mesa) {
     const modal = document.getElementById('detalleMesa');
-    if (!modal) return;
+    if (!modal) {
+        console.error('[mostrarDetalleMesa] modal #detalleMesa no encontrado');
+        return;
+    }
 
-    document.getElementById('dm-id').textContent = mesa.id;
-    document.getElementById('dm-nombre').textContent = mesa.nombre || mesa.id;
-    document.getElementById('dm-capacidad').textContent = mesa.capacidad;
-    document.getElementById('dm-ubicacion').textContent = mesa.ubicacion || '';
-
+    const dmId = document.getElementById('dm-id');
+    const dmNombre = document.getElementById('dm-nombre');
+    const dmCapacidad = document.getElementById('dm-capacidad');
+    const dmUbicacion = document.getElementById('dm-ubicacion');
     const estadoEl = document.getElementById('dm-estado');
+
+    // Rellenar solo si existen los elementos (evita TypeError)
+    if (dmId) dmId.textContent = mesa?.id ?? '';
+    else console.warn('[mostrarDetalleMesa] elemento #dm-id no encontrado en el DOM');
+
+    if (dmNombre) dmNombre.textContent = mesa?.nombre || mesa?.id || '';
+    else console.warn('[mostrarDetalleMesa] elemento #dm-nombre no encontrado en el DOM');
+
+    if (dmCapacidad) dmCapacidad.textContent = mesa?.capacidad ?? '';
+    else console.warn('[mostrarDetalleMesa] elemento #dm-capacidad no encontrado en el DOM');
+
+    if (dmUbicacion) dmUbicacion.textContent = mesa?.ubicacion || '';
+    else console.warn('[mostrarDetalleMesa] elemento #dm-ubicacion no encontrado en el DOM');
+
     if (estadoEl) {
         estadoEl.className = 'inline-block rounded px-2 py-0.5 text-sm font-medium text-white ';
-        estadoEl.textContent = mesa.estado.charAt(0).toUpperCase() + mesa.estado.slice(1);
-        estadoEl.classList.add(mesa.estado === 'disponible' ? 'bg-green-500' : mesa.estado === 'ocupada' ? 'bg-blue-500' : 'bg-gray-500');
+        const estadoText = mesa?.estado ? (mesa.estado.charAt(0).toUpperCase() + mesa.estado.slice(1)) : '';
+        estadoEl.textContent = estadoText;
+        estadoEl.classList.remove('bg-green-500','bg-blue-500','bg-gray-500');
+        if (mesa?.estado === 'disponible') estadoEl.classList.add('bg-green-500');
+        else if (mesa?.estado === 'ocupada') estadoEl.classList.add('bg-blue-500');
+        else estadoEl.classList.add('bg-gray-500');
+    } else {
+        console.warn('[mostrarDetalleMesa] elemento #dm-estado no encontrado en el DOM');
     }
 
     modal.classList.remove('hidden');
 
-    document.getElementById('dm-editar').onclick = () => {
-        cerrarModalDetalle();
-        abrirModalEditarMesa(mesa.id);
-    };
-    document.getElementById('dm-eliminar').onclick = () => {
-        mostrarConfirmacion('¿Está seguro de eliminar esta mesa?', () => eliminarMesa(mesa.id));
-    };
-    document.getElementById('dm-reservar').onclick = () => {
-        if (mesa.estado === 'deshabilitada') {
-            mostrarMensaje('Esta mesa está deshabilitada y no se puede reservar.', 'error');
-            return;
-        }
-        cerrarModalDetalle();
-        abrirModalReserva(mesa.id);
-    };
+    const btnEditar = document.getElementById('dm-editar');
+    const btnEliminar = document.getElementById('dm-eliminar');
+    const btnReservar = document.getElementById('dm-reservar');
+
+    if (btnEditar) {
+        btnEditar.onclick = () => { cerrarModalDetalle(); abrirModalEditarMesa(mesa.id); };
+    }
+    if (btnEliminar) {
+        btnEliminar.onclick = () => { mostrarConfirmacion('¿Está seguro de eliminar esta mesa?', () => eliminarMesa(mesa.id)); };
+    }
+    if (btnReservar) {
+        btnReservar.onclick = () => {
+            if (mesa.estado === 'deshabilitada') {
+                mostrarMensaje('Esta mesa está deshabilitada y no se puede reservar.', 'error');
+                return;
+            }
+            cerrarModalDetalle();
+            abrirModalReserva(mesa.id);
+        };
+    }
 }
 
 function cerrarModalDetalle() {
@@ -431,7 +458,7 @@ function abrirModalReserva(mesaId = null, reserva = null) {
     } else {
         inNombre.value = '';
         inPersonas.value = '';
-        const hoy = new Date().toISOString().split('T')[0];
+        const hoy = localISODate();
         inFecha.value = hoy;
         inFecha.min = hoy;
         inHoraInicio.value = '08:00';
@@ -531,7 +558,7 @@ function validarFormularioReserva() {
         document.getElementById('errorFechaReserva').textContent = 'La fecha es obligatoria';
         document.getElementById('errorFechaReserva').classList.remove('hidden');
         valido = false;
-    } else if (fecha < new Date().toISOString().split('T')[0]) {
+    } else if (fecha < localISODate()) {
         document.getElementById('errorFechaReserva').textContent = 'La fecha debe ser hoy o en el futuro';
         document.getElementById('errorFechaReserva').classList.remove('hidden');
         valido = false;
@@ -732,69 +759,13 @@ function initSampleData() {
     }
 }
 
-// ...existing code...
-function mostrarDetalleMesa(mesa) {
-    const modal = document.getElementById('detalleMesa');
-    if (!modal) {
-        console.error('[mostrarDetalleMesa] modal #detalleMesa no encontrado');
-        return;
-    }
-
-    const dmId = document.getElementById('dm-id');
-    const dmNombre = document.getElementById('dm-nombre');
-    const dmCapacidad = document.getElementById('dm-capacidad');
-    const dmUbicacion = document.getElementById('dm-ubicacion');
-    const estadoEl = document.getElementById('dm-estado');
-
-    // Rellenar solo si existen los elementos (evita TypeError)
-    if (dmId) dmId.textContent = mesa?.id ?? '';
-    else console.warn('[mostrarDetalleMesa] elemento #dm-id no encontrado en el DOM');
-
-    if (dmNombre) dmNombre.textContent = mesa?.nombre || mesa?.id || '';
-    else console.warn('[mostrarDetalleMesa] elemento #dm-nombre no encontrado en el DOM');
-
-    if (dmCapacidad) dmCapacidad.textContent = mesa?.capacidad ?? '';
-    else console.warn('[mostrarDetalleMesa] elemento #dm-capacidad no encontrado en el DOM');
-
-    if (dmUbicacion) dmUbicacion.textContent = mesa?.ubicacion || '';
-    else console.warn('[mostrarDetalleMesa] elemento #dm-ubicacion no encontrado en el DOM');
-
-    if (estadoEl) {
-        estadoEl.className = 'inline-block rounded px-2 py-0.5 text-sm font-medium text-white ';
-        const estadoText = mesa?.estado ? (mesa.estado.charAt(0).toUpperCase() + mesa.estado.slice(1)) : '';
-        estadoEl.textContent = estadoText;
-        estadoEl.classList.remove('bg-green-500','bg-blue-500','bg-gray-500');
-        if (mesa?.estado === 'disponible') estadoEl.classList.add('bg-green-500');
-        else if (mesa?.estado === 'ocupada') estadoEl.classList.add('bg-blue-500');
-        else estadoEl.classList.add('bg-gray-500');
-    } else {
-        console.warn('[mostrarDetalleMesa] elemento #dm-estado no encontrado en el DOM');
-    }
-
-    modal.classList.remove('hidden');
-
-    const btnEditar = document.getElementById('dm-editar');
-    const btnEliminar = document.getElementById('dm-eliminar');
-    const btnReservar = document.getElementById('dm-reservar');
-
-    if (btnEditar) {
-        btnEditar.onclick = () => { cerrarModalDetalle(); abrirModalEditarMesa(mesa.id); };
-    }
-    if (btnEliminar) {
-        btnEliminar.onclick = () => { mostrarConfirmacion('¿Está seguro de eliminar esta mesa?', () => eliminarMesa(mesa.id)); };
-    }
-    if (btnReservar) {
-        btnReservar.onclick = () => {
-            if (mesa.estado === 'deshabilitada') {
-                mostrarMensaje('Esta mesa está deshabilitada y no se puede reservar.', 'error');
-                return;
-            }
-            cerrarModalDetalle();
-            abrirModalReserva(mesa.id);
-        };
-    }
+// helper: fecha local YYYY-MM-DD (evita desplazamiento por UTC)
+function localISODate(d = new Date()) {
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
-// ...existing code...
 
 // ========== EVENT LISTENERS ==========
 document.addEventListener('DOMContentLoaded', () => {

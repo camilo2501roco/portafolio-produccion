@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Héroes 3D — UI Medieval Clara</title>
+  <title>Héroes</title>
 
-  <!-- Tipografías heroicas -->
+ 
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cardo:wght@400;700&family=Uncial+Antiqua&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-
+ <link rel="icon" href="icono.png" type="image/png" />
   <style>
   :root{
-    /* Paleta más viva */
+
     --bg-deep:#0a1a12;
     --emerald:#1ecb87;
     --emerald-soft:rgba(30,203,135,.35);
@@ -20,18 +20,18 @@
     --text:#221f1a;
     --muted:#5e5a52;
 
-    /* Pergamino */
+   
     --papyrus:#eeba00;
     --papyrus-2:#b69315;
     --papyrus-edge:#cecb21;
 
-    /* Stats */
+ 
     --hp:#e24c4c; --mp:#3c69d1; --agi:#1fbd7e;
 
-    /* Botones claros */
+  
     --edge-light:#fdf6e7; --metal-1:#6f665c; --metal-2:#2a231c;
 
-    /* ALTURA DEL HUD (ajústala a gusto) */
+   
     --hud-h: clamp(120px, 18vh, 180px);
   }
 
@@ -44,7 +44,7 @@
     font-family:"Cardo", Georgia, serif;
   }
 
-  /* ===== Layout: visor (izq) + selector (der) ===== */
+  
   .app{
     display:grid;
     grid-template-columns: 1fr 220px;
@@ -52,7 +52,7 @@
     height:100vh;
   }
 
-  /* ===== Selector de héroes (derecha) ===== */
+ 
   .selector-heroes{
     grid-column:2; grid-row:1;
     background: linear-gradient(180deg, #c3a619 0%, #cba200 100%);
@@ -93,15 +93,15 @@
       0 0 26px rgba(241,204,124,.55);
   }
 
-  /* ===== Visor principal (izquierda) ===== */
+  
   .viewer-area{
     grid-column:1; grid-row:1;
     position:relative; display:grid;
-    grid-template-rows: 1fr var(--hud-h);  /* 3D arriba, pergamino abajo (más bajo) */
+    grid-template-rows: 1fr var(--hud-h);  
     overflow:hidden;
   }
 
-  /* Video de fondo */
+  
   .bg-video{
     grid-row:1 / -1; grid-column:1;
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
@@ -112,7 +112,7 @@
     filter: contrast(1.04) saturate(1.08) brightness(.98);
   }
 
-  /* Vignette dorada */
+ 
   .viewer-area::before{
     content:""; position:absolute; inset:-2%;
     background:
@@ -122,7 +122,7 @@
     z-index:0; pointer-events:none; mix-blend-mode: soft-light;
   }
 
-  /* model-viewer */
+
   model-viewer{
     grid-row:1/2; grid-column:1;
     position:relative; width:100%; height:100%;
@@ -131,7 +131,7 @@
   }
   model-viewer.visible{ display:block; }
 
-  /* ===== HUD Pergamino (abajo) ===== */
+  
   .hud{
     grid-row:2/3; grid-column:1;
     display:grid; grid-template-columns: 300px 1fr 280px; gap:12px; align-items:center;
@@ -152,7 +152,7 @@
     opacity:.45; mix-blend-mode:multiply;
   }
 
-  /* Tipografías del HUD (compactadas) */
+  
   .name{
     font-family:"Uncial Antiqua", "Cinzel", serif;
     font-weight:400; letter-spacing:.3px; font-size:22px;
@@ -190,7 +190,6 @@
   .v-agi{color:var(--agi); background: linear-gradient(90deg, rgba(31,189,126,.45), rgba(31,189,126,1)); }
   .num{ text-align:right; color:#2a2317; font-weight:700; }
 
-  /* ===== Botones (arriba izquierda) ===== */
   .btn-medieval{
     --pad-x: 14px; --pad-y: 7px;
     display:inline-block;
@@ -224,7 +223,7 @@
     display:flex; gap:10px; align-items:center;
   }
 
-  /* Responsive */
+ 
   @media (max-width: 1080px){
     :root{ --hud-h: clamp(110px, 16vh, 160px); }
     .app{ grid-template-columns: 1fr 170px; }
@@ -236,15 +235,15 @@
 </head>
 <body>
   <div class="app">
-    <!-- Visor -->
+    
     <main class="viewer-area">
 
-      <!-- Fondo de video — HÉROES -->
+      
       <video class="bg-video" autoplay muted loop playsinline preload="auto" id="bg-heroes">
         <source src="personsajes3D_buenos/heroes-con-fondo.mp4" type="video/mp4">
       </video>
 
-      <!-- Modelos 3D -->
+    
       <model-viewer id="elfo-3d"      src="personsajes3D_buenos/elfo_clerigo/scene.gltf"  auto-rotate></model-viewer>
       <model-viewer id="caballero-3d" src="personsajes3D_buenos/knight_-_includes_file_for_3d_printing/scene.gltf"  auto-rotate></model-viewer>
       <model-viewer id="escudero-3d"  src="personsajes3D_buenos/viking_-_rigged_for_animation/scene.gltf"  auto-rotate></model-viewer>
@@ -252,7 +251,7 @@
       <model-viewer id="vengadora-3d" src="personsajes3D_buenos/silksong__hornet_fanart/scene.gltf"  auto-rotate></model-viewer>
       <model-viewer id="arquera-3d"   src="personsajes3D_buenos/arquera/scene.gltf"  auto-rotate></model-viewer>
 
-      <!-- HUD pergamino -->
+    
       <section class="hud" id="hud">
         <div class="info-left">
           <div class="name" id="hud-nombre">Elfo Clérigo</div>
@@ -288,7 +287,7 @@
       </section>
     </main>
 
-    <!-- Selector de retratos (derecha) -->
+   
     <aside class="selector-heroes">
       <img src="personsajes3D_buenos/perfil-elfo.png"        alt="Elfo"      class="perfil-heroes" data-target="elfo-3d">
       <img src="personsajes3D_buenos/casco-metal.png"   alt="Caballero" class="perfil-heroes" data-target="caballero-3d">
@@ -299,20 +298,20 @@
     </aside>
   </div>
 
-  <!-- ===== Acciones superiores (izquierda) ===== -->
+  
   <div class="top-actions-left">
     <a href="index.html" class="btn-medieval" title="Volver a la principal">← Principal</a>
     <button id="toggle-bgm" class="btn-medieval" aria-pressed="false" title="Música">Música: OFF</button>
   </div>
 
-  <!-- AUDIO DE FONDO (cambia la ruta a tu pista) -->
+  
   <audio id="bgm" loop preload="auto">
     <source src="personsajes3D_buenos/audio-heroes.mp3" type="audio/mpeg">
-    <!-- <source src="personsajes3D_buenos/audio-heroes.ogg" type="audio/ogg"> -->
+   
   </audio>
 
   <script>
-  // ===== Datos y lógica de héroes =====
+
   const DATA = {
     "elfo-3d":      { nombre:"Elfo Clérigo", rol:"Bendecido por la Luz",  hp:78, mp:95, agi:82,
       desc:"Portador de antiguas plegarias élficas. Sana a los caídos y bendice las flechas aliadas." },
@@ -362,7 +361,6 @@
   perfiles.forEach(p => p.addEventListener('click', () => mostrar(p.dataset.target)));
   mostrar('elfo-3d'); // héroe inicial
 
-  // ===== Música: botón ON/OFF (arriba izquierda) =====
   const bgm = document.getElementById('bgm');
   const btnMusic = document.getElementById('toggle-bgm');
 
